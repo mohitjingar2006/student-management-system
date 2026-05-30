@@ -2,7 +2,7 @@
 
 A console-based Student Management System built using Python.
 
-This project is being developed step-by-step to learn:
+This project is being developed incrementally to learn:
 
 * Python
 * Object-Oriented Programming (OOP)
@@ -23,7 +23,7 @@ This project is being developed step-by-step to learn:
 * Search Student
 * Update Student Details
 * Remove Student
-* CSV File Storage
+* CSV -based Data Storage
 * Duplicate Roll Number Validation
 * Input Validation
 * Object-Oriented Design
@@ -64,7 +64,7 @@ Student_Management_System/
 * Constructors
 * Dunder Methods (`__str__`)
 * Modular Programming
-* CSV Reader/Writer
+* CSV File Operations
 * Exception Handling
 * Data Validation
 
