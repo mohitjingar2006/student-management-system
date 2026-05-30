@@ -81,7 +81,7 @@ git clone <your-repository-link>
 ## Open Project Directory
 
 ```bash
-cd Student_Management_System
+cd student-management-system
 ```
 
 ## Run the Program
@@ -95,8 +95,8 @@ python3 main.py
 # Sample Admin Credentials
 
 ```text
-Username: Mohit
-Password: mohit123
+Username: admin
+Password: admin123
 ```
 
 ---
