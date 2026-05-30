@@ -1,3 +1,4 @@
+import csv
 from admin import Admin
 from student import add_student,view_all_students,load_students,search_student,update_student_details,remove_student
 import config
@@ -6,9 +7,13 @@ config.students = load_students()
 
 admin_name = ""
 admin_password = ""
-with open("admin.txt") as f:
-	admin_name ,admin_password = f.readline().strip().split(",")
-
+try:
+	with open("admin.csv",newline = "") as file:
+		reader = csv.reader(file)
+		admin_name ,admin_password = next(reader)
+except FileNotFoundError:
+	print("admin.csv file not found.")
+	print()
 admin = Admin(admin_name,admin_password)
 
 

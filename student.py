@@ -1,3 +1,4 @@
+import csv
 import config
 class Student:
 	def __init__(self,name,roll_num,grade,branch):
@@ -7,43 +8,46 @@ class Student:
 		self.branch = branch
 	def __str__(self):
 		return (
-			f"{'Name' :<10}: {self.name}\n"
-			f"{'Grade' :<10}: {self.grade}\n"
-			f"{'Branch' :<10}: {self.branch}\n"
+			f"{'Name' :<12}: {self.name}\n"
+			f"{'Roll Number' :<12}: {self.roll_number}\n"
+			f"{'Grade' :<12}: {self.grade}\n"
+			f"{'Branch' :<12}: {self.branch}\n"
 			)
 	def update_branch(self,Branch):
 		self.branch = Branch
 	def update_grade(self,Grade):
 		self.grade = Grade
 	def to_file_format(self):
-		return f"{self.name},{self.roll_number},{self.grade},{self.branch}\n"
+		return [self.name,self.roll_number,self.grade,self.branch]
 
 
 def save_all_students():
-	with open("student.txt","w") as f:
+	with open("student.csv","w",newline = "") as file:
+		writer = csv.writer(file)
 		for Student in config.students :
-			f.write(Student.to_file_format())
+			writer.writerow(Student.to_file_format())
 
 
 def load_students():
 	config.students.clear()
 	try:
-		with open("student.txt") as f:
-			for line in f:
-				data = line.strip()
-				if not(data):
-					break
+		with open("student.csv",newline = "") as file:
+			reader = csv.reader(file)
+			for row in reader:
 				try:
-					name,roll_number,grade,branch = data.split(",")
+					name,roll_number,grade,branch = row
 					student = Student(name,roll_number,grade,branch)
 					config.students.append(student)
 				except ValueError:
-					print("Innvalid Student Data Format.")
+					print("Invalid Student Data Format.")
 		return config.students
 	except FileNotFoundError:
-		print("student.txt file not found.")
+		print("student.csv file not found.")
+		return []
 
 def avoid_duplicate_roll(roll_num):
+	if not config.students :
+		return False
 	for current_student in config.students :
 		if(current_student.roll_number == roll_num):
 			return True
@@ -67,13 +71,16 @@ def add_student():
 	while branch == "" or branch.isdigit() :
 		print("Invalid Input.")
 		branch = input("Enter Student Branch : ").strip()
+
 	student = Student(name,roll_num,grade,branch)
+
 	try:
-		with open("student.txt","a") as f:
-        		f.write(f"{name},{roll_num},{grade},{branch}\n")
+		with open("student.csv","a",newline = "") as file:
+			writer = csv.writer(file)
+			writer.writerow(student.to_file_format())
+
 		print("\nStudent Added.\n")
 		config.students.append(student)
-		print(f"{'Roll Number' : <10}: {student.roll_number}")
 		print(student)
 		print()
 	except Exception as e :
