@@ -1,0 +1,16 @@
+Krishna Yadav,101,1st Yr.,Electrical
+Mohit Jingar,102,1st Yr.,Electrical
+Mohit Jingar,401,4th Yr.,Electrical
+Harshita,201,2nd Yr.,Optics
+Amratanshu Gupta,103,1st Yr.,AI/DS
+Pratham Karmakar,202,2nd Yr.,Materials
+Garv Seth,301,3rd Yr.,ES
+Divyansh Yadav,203,2nd Yr.,CSE
+Cherry Aggarwal,204,2nd Yr.,Bioengineering
+Deepinder Singh,302,3rd Yr.,Materials
+Jayesh Kushwaha,205,2nd Yr.,Bioengineering
+Shreya Sharma,104,1st Yr.,Chemical
+Gaurav Kumar,303,3rd Yr.,Mechanical
+Nikita Jingar,402,4th Yr.,Electrical
+Garvit Tak,403,4th Yr.,Physics
+Raghav Meena,404,4th Yr.,B.S. Chemistry
