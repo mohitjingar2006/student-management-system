@@ -122,7 +122,7 @@ def view_all_students():
 
 	print("\n")
 
-def update_branch():
+def update_student_branch():
 	roll_num = input("Enter student roll_number : ").strip()
 	print("\n")
 	student = find_student_by_roll(roll_num)
@@ -136,7 +136,7 @@ def update_branch():
 	else:
 		print("\nStudent Not Found.\n")
 
-def update_grade():
+def update_student_grade():
 	roll_num = input("Enter student roll_number : ").strip()
 	print("\n")
 	student = find_student_by_roll(roll_num)
@@ -168,9 +168,9 @@ def update_student_details():
 		choice = input("Enter your choice : ").strip()
 		print("\n")
 		if(choice == "1"):
-			update_branch()
+			update_student_branch()
 		elif(choice == "2"):
-			update_grade()
+			update_student_grade()
 		elif(choice == "3"):
 			print("\nExiting...\n")
 			return
