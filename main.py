@@ -7,6 +7,7 @@ config.students = load_students()
 
 admin_name = ""
 admin_password = ""
+
 try:
 	with open("admin.csv",newline = "") as file:
 		reader = csv.reader(file)

@@ -122,6 +122,38 @@ def view_all_students():
 
 	print("\n")
 
+def update_branch():
+	roll_num = input("Enter student roll_number : ").strip()
+	print("\n")
+	student = find_student_by_roll(roll_num)
+	if student:
+		student.update_branch(input("Enter Branch of the Student : ").strip())
+		#later will keep branch change optioon only for students coming to 2nd yr. means for starting of 2nd yr. and will make separate classes for respective yrs.
+		save_all_students()
+		print("Student details updated.")
+		print()
+		print(student)
+	else:
+		print("\nStudent Not Found.\n")
+
+def update_grade():
+	roll_num = input("Enter student roll_number : ").strip()
+	print("\n")
+	student = find_student_by_roll(roll_num)
+	if student:
+		grade = input("Enter grade of the student : ").strip()
+		grades = ["1st Yr.","2nd Yr.","3rd Yr.","4th Yr."]
+		while grade not in grades:
+			print("Invalid grade.")
+			grade = input("Enter grade of the student : ").strip()
+		student.update_grade(grade)
+		print()
+		save_all_students()
+		print("\nStudent details updated.\n")
+		print(student)
+	else:
+		print("\nStudent Not Found.\n")
+
 
 def update_student_details():
 	if not config.students:
@@ -136,35 +168,9 @@ def update_student_details():
 		choice = input("Enter your choice : ").strip()
 		print("\n")
 		if(choice == "1"):
-			roll_num = input("Enter student roll_number : ").strip()
-			print("\n")
-			student = find_student_by_roll(roll_num)
-			if student:
-				student.update_branch(input("Enter Branch of the Student : ").strip())
-				#later will keep branch change optioon only for students coming to 2nd yr. means for starting of 2nd yr. and will make separate classes for respwctive yrs.
-				save_all_students()
-				print("Student details updated.")
-				print()
-				print(student)
-			else:
-				print("\nStudent Not Found.\n")
+			update_branch()
 		elif(choice == "2"):
-			roll_num = input("Enter student roll_number : ").strip()
-			print("\n")
-			student = find_student_by_roll(roll_num)
-			if student:
-				grade = input("Enter grade of the student : ").strip()
-				grades = ["1st Yr.","2nd Yr.","3rd Yr.","4th Yr."]
-				while grade not in grades:
-					print("Invalid grade.")
-					grade = input("Enter grade of the student : ").strip()
-				student.update_grade(grade)
-				print()
-				save_all_students()
-				print("\nStudent details updated.\n")
-				print(student)
-			else:
-				print("\nStudent Not Found.\n")
+			update_grade()
 		elif(choice == "3"):
 			print("\nExiting...\n")
 			return
