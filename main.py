@@ -21,44 +21,56 @@ admin = Admin(admin_name,admin_password)
 while True:
 	print("=================================================================================================== Student Management System =======================================================================================================")
 	print("\n\n")
-	print("Login as Admin")
+	print("1.Login as Admin")
+	print("2.Exit Program")
 	print("\n\n")
-	admin_name = input("Enter your name : ").strip()
-	while admin_name == "":
-		name = input("Name cannot be empty : ").strip()
-	if(admin.check_name(admin_name)):
-		password = input("Enter your password : ").strip()
-		if(admin.check_password(password)):
-			while True:
-				print("\nMenu :\n")
-				print("1. View All Students")
-				print("2. Add Student")
-				print("3. Search Student")
-				print("4. Remove Student")
-				print("5. Update Student details")
-				#later I would give this option after opening the student details 
-				print("6. Exit")
-				print("\n")
-				choice = input("Enter your choice : ")
-				print("\n")
-				if(choice == "1"):
-					view_all_students()
-				elif(choice == "2"):
-					add_student()
-				elif(choice == "3"):
-					search_student()
-				elif(choice == "4"):
-					remove_student()
-				elif(choice == "5"):
-					update_student_details()
-				elif(choice == "6"):
-					print("\nExiting system...\n")
-					break
-				else:
-					print("\nInvalid Choice.\n")
+	menu_choice = input("Enter your choice : ")
+	print()
+	if (menu_choice == "1"):
+		admin_name = input("Enter your name : ").strip()
+		while admin_name == "":
+			admin_name = input("Name cannot be empty : ").strip()
+		if(admin.check_name(admin_name)):
+			password = input("Enter your password : ").strip()
+			if(admin.check_password(password)):
+				print()
+				print(f"Welcome {admin_name}")
+				print()
+				while True:
+					print("\nMenu :\n")
+					print("1. View All Students")
+					print("2. Add Student")
+					print("3. Search Student")
+					print("4. Remove Student")
+					print("5. Update Student details")
+					#later I would give this option after opening the student details 
+					print("6. Logout")
+					print("\n")
+					choice = input("Enter your choice : ")
+					print("\n")
+					if(choice == "1"):
+						view_all_students()
+					elif(choice == "2"):
+						add_student()
+					elif(choice == "3"):
+						search_student()
+					elif(choice == "4"):
+						remove_student()
+					elif(choice == "5"):
+						update_student_details()
+					elif(choice == "6"):
+						print("\nLogging Out...\n")
+						break
+					else:
+						print("\nInvalid Choice.\n")
+			else:
+				print("\nInvalid Password.\n")
 		else:
-			print("\nInvalid Password.\n")
+			print("\nAdmin not found.\n")
+	elif(menu_choice == "2"):
+		print("\nExiting program...\n")
+		break
 	else:
-		print("\nAdmin not found.\n")
+		print("\nInvalid Input\n")
 
 
