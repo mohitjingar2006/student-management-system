@@ -2,14 +2,7 @@
 
 A console-based Student Management System built using Python.
 
-This project is being developed incrementally to learn:
-
-* Python
-* Object-Oriented Programming (OOP)
-* File Handling
-* CSV Handling
-* Exception Handling
-* Backend Development Fundamentals
+This project is being developed incrementally to learn software development fundamentals, Object-Oriented Programming, data persistence, and backend concepts.
 
 ---
 
@@ -17,16 +10,43 @@ This project is being developed incrementally to learn:
 
 ## Current Features
 
+### Authentication
+
 * Admin Login
+* Teacher Login
+* Password Masking
+* Cross-Platform Password Input Support (Windows/Linux/macOS)
+
+### Student Management
+
 * Add Student
 * View All Students
 * Search Student
 * Update Student Details
 * Remove Student
-* CSV -based Data Storage
-* Duplicate Roll Number Validation
+* Automatic Roll Number Generation
+
+### Teacher Management
+
+* Add Teacher
+* View All Teachers
+* Search Teacher
+* Update Teacher Details
+* Remove Teacher
+* Automatic Teacher ID Generation
+* Automatic Password Generation
+
+### Data Management
+
+* CSV-Based Data Storage
+* Automatic Data Loading at Startup
+* Data Persistence Across Sessions
+
+### Validation & Design
+
 * Input Validation
 * Object-Oriented Design
+* Modular Architecture
 * Exception Handling
 
 ---
@@ -35,8 +55,9 @@ This project is being developed incrementally to learn:
 
 * Python
 * CSV Module
-* OOP Concepts
+* Object-Oriented Programming (OOP)
 * File Handling
+* Exception Handling
 
 ---
 
@@ -46,11 +67,15 @@ This project is being developed incrementally to learn:
 Student_Management_System/
 │
 ├── main.py
-├── student.py
 ├── admin.py
+├── student.py
+├── teacher.py
+├── mask_input.py
+├── utils.py
 ├── config.py
 │
 ├── student.csv
+├── teacher.csv
 ├── admin.csv
 │
 └── README.md
@@ -62,11 +87,14 @@ Student_Management_System/
 
 * Classes and Objects
 * Constructors
+* Encapsulation
 * Dunder Methods (`__str__`)
 * Modular Programming
 * CSV File Operations
 * Exception Handling
 * Data Validation
+* Authentication System
+* Cross-Platform Terminal Handling
 
 ---
 
@@ -105,24 +133,28 @@ Password: admin123
 
 ## Planned Features
 
-* Better Exception Handling
 * SQLite Database Integration
-* Multiple Admin Support
-* Sorting and Filtering
-* Flask Web Version
+* Password Hashing
+* Student Promotion System
+* Advanced Search & Filtering
+* Flask Web Application
 * HTML/CSS Frontend
 * Authentication Improvements
+* REST API Development
 
 ---
 
 # Learning Goals
 
-This project is mainly being built for learning:
+This project is primarily being built to learn:
 
+* Python Programming
+* Object-Oriented Design
 * Backend Development
-* Software Design
-* Data Management
-* Python Development Workflow
+* Data Persistence
+* Database Integration
+* Web Development with Flask
+* Software Engineering Fundamentals
 
 ---
 
@@ -131,4 +163,5 @@ This project is mainly being built for learning:
 Mohit Jingar
 
 B.Tech Electrical Engineering Student
+
 Indian Institute of Technology Jodhpur

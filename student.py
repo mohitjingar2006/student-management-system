@@ -1,19 +1,26 @@
 VALID_GRADES = ["1st Yr.","2nd Yr.","3rd Yr.","4th Yr."]
 VALID_BRANCHES = [
-    "Electrical",
-    "Mechanical",
-    "CSE",
-    "AI/DS",
-    "Chemical",
-    "Materials",
-    "Bioengineering",
-    "ES",
-    "Optics",
-    "Aeronautics"
+	"Electrical",
+	"Mechanical",
+	"CSE",
+	"AI/DS",
+	"Chemical",
+	"Materials",
+	"Bioengineering",
+	"ES",
+	"Optics",
+	"Aeronautics",
+	"Mathematics",
+	"Chemistry",
+	"Physics"
 ]
+
 
 import csv
 import config
+from utils import require_non_empty
+
+
 class Student:
 	def __init__(self,name,roll_num,grade,branch):
 		self.name = name
@@ -70,7 +77,7 @@ def avoid_duplicate_roll(roll_num):
 	if not config.students :
 		return False
 	for current_student in config.students :
-		if(current_student.roll_number == roll_num):
+		if current_student.roll_number == roll_num:
 			return True
 	return False
 
@@ -78,7 +85,7 @@ def avoid_duplicate_roll(roll_num):
 def input_valid_grade():
 	grade = input("Enter Student Grade : ").strip()
 	while grade not in VALID_GRADES:
-		print("Invalid Grade.")
+		print("Invalid Input.")
 		grade = input("Enter Student Grade : ").strip()
 	return grade
 
@@ -88,7 +95,7 @@ def get_valid_branch():
 	for i, branch in enumerate(VALID_BRANCHES, start=1):
 		print(f"{(str(i)+'.'):<5} {branch}")
 	while True:
-		branch_choice = input("\nEnter choice : ").strip()
+		branch_choice = require_non_empty("choice")
 		print()
 		if not branch_choice.isdigit():
 			print("\nInvalid Input.\n")
@@ -103,7 +110,7 @@ def get_valid_branch():
 def count_students_by_grade(grade):
 	count = 0
 	for student in config.students :
-		if(student.grade == grade):
+		if student.grade == grade:
 			count += 1
 	return count
 
@@ -121,9 +128,8 @@ def roll_num_generator(grade):
 
 
 def add_student():
-	name = input("Enter Student Name : ").strip()
-	while name == "":
-		name = input("Name cannot be empty : ").strip()
+	prompt = "Enter Student Name : "
+	name = require_non_empty(prompt)
 
 	#checking for valid grade.
 	grade = input_valid_grade()
@@ -152,7 +158,7 @@ def add_student():
 
 def find_student_by_roll(roll_num):
 	for current_student in config.students:
-		if(current_student.roll_number == roll_num):
+		if current_student.roll_number == roll_num:
 			return current_student
 	return None
 
@@ -163,7 +169,8 @@ def search_student():
 	exist = students_exist()
 	if not exist:
 		return
-	roll_num = input("Enter Student Roll number : ").strip()
+	prompt = "Enter Student Roll Number : "
+	roll_num = require_non_empty(prompt)
 	print("\n")
 	current_student = find_student_by_roll(roll_num)
 	if current_student:
@@ -188,7 +195,8 @@ def view_all_students():
 	print("\n")
 
 def update_student_branch():
-	roll_num = input("Enter student roll_number : ").strip()
+	prompt = "Enter Student Roll Number : "
+	roll_num = require_non_empty(prompt)
 	print("\n")
 	student = find_student_by_roll(roll_num)
 	if student:
@@ -203,7 +211,8 @@ def update_student_branch():
 		print("\nStudent Not Found.\n")
 
 def update_student_grade():
-	roll_num = input("Enter student roll_number : ").strip()
+	prompt = "Enter Student Roll Number : "
+	roll_num = require_non_empty(prompt)
 	print("\n")
 	student = find_student_by_roll(roll_num)
 	if student:
@@ -230,11 +239,11 @@ def update_student_details():
 		print("\n")
 		choice = input("Enter your choice : ").strip()
 		print("\n")
-		if(choice == "1"):
+		if choice == "1":
 			update_student_branch()
-		elif(choice == "2"):
+		elif choice == "2":
 			update_student_grade()
-		elif(choice == "3"):
+		elif choice == "3":
 			print("\nExiting...\n")
 			return
 		else:
@@ -245,17 +254,18 @@ def remove_student():
 	exist = students_exist()
 	if not exist:
 		return
-	roll_num = input("Enter Student Roll Number : ")
+	prompt = "Enter Student Roll Number : "
+	roll_num = require_non_empty(prompt)
 	print()
 	student = find_student_by_roll(roll_num)
 	if student:
 		user_input = input(f"Are you sure you want to remove {student.name} (y/n) : ").strip().lower()
-		if(user_input == "y"):
+		if user_input == "y":
 			config.students.remove(student)
 			save_all_students()
 			print("\nStudent removed.\n")
 			print(student)
-		elif(user_input == "n"):
+		elif user_input == "n":
 			print("\nOperation Cancelled\n")
 		else :
 			print("\nInvalid Input\n")

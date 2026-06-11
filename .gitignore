@@ -1,2 +1,4 @@
 __pycache__/
 *.pyc
+.admin.py.swp
+.main.py.swp
