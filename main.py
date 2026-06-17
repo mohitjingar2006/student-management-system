@@ -1,9 +1,20 @@
-from admin import admin_menu
+from admin import admin_menu, Admin
 from teacher import load_teachers,teacher_menu
 from student import load_students
+from database import initialise_database,setup_admin,load_admin
 import config
 
-config.students = load_students()
+initialise_database()
+setup_admin()
+#Unpacking load_admin row
+try:
+	admin_id, admin_name, admin_password = load_admin()
+	admin = Admin(admin_id, admin_name, admin_password)
+except ValueError:
+	admin = None
+
+# students = load_students()
+# config.students = load_students()
 config.teachers = load_teachers()
 
 while True:
@@ -25,7 +36,7 @@ while True:
 			login_choice = input("Enter your choice : ")
 			print("\n")
 			if login_choice == "1":
-				admin_menu()
+				admin_menu(admin)
 			elif login_choice == "2":
 				teacher_menu()
 			elif login_choice == "3":

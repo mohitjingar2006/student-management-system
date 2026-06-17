@@ -19,6 +19,7 @@ VALID_BRANCHES = [
 import csv
 import config
 from utils import require_non_empty
+from database import load_students_from_database,save_student,load_student_by_roll_num,count_students_by_grade,update_student_branch_db,update_student_grade_db,delete_student,count_students
 
 
 class Student:
@@ -50,36 +51,22 @@ def save_all_students():
 
 
 def load_students():
-	config.students.clear()
-	try:
-		with open("student.csv",newline = "") as file:
-			reader = csv.reader(file)
-			for row in reader:
-				try:
-					name,roll_number,grade,branch = row
-					student = Student(name,roll_number,grade,branch)
-					config.students.append(student)
-				except ValueError:
-					print("Invalid Student Data Format.")
-		return config.students
-	except FileNotFoundError:
-		print("student.csv file not found.")
-		return []
+	students = []
+	rows = load_students_from_database()
+	for row in rows:
+		roll_num,name,grade,branch = row
+		student = Student(name,roll_num,grade,branch)
+		students.append(student)
+	return students
+
 
 def students_exist():
-	if not config.students :
+	count = count_students()
+	if count == 0:
 		print("\nNo student exists.\n")
 		return False
 	return True
-
-
-def avoid_duplicate_roll(roll_num):
-	if not config.students :
-		return False
-	for current_student in config.students :
-		if current_student.roll_number == roll_num:
-			return True
-	return False
+	students = load_students()
 
 
 def input_valid_grade():
@@ -95,7 +82,8 @@ def get_valid_branch():
 	for i, branch in enumerate(VALID_BRANCHES, start=1):
 		print(f"{(str(i)+'.'):<5} {branch}")
 	while True:
-		branch_choice = require_non_empty("choice")
+		prompt = "Enter student choice : "
+		branch_choice = require_non_empty(prompt)
 		print()
 		if not branch_choice.isdigit():
 			print("\nInvalid Input.\n")
@@ -107,12 +95,6 @@ def get_valid_branch():
 			print("\nInvalid Input.\n")
 
 
-def count_students_by_grade(grade):
-	count = 0
-	for student in config.students :
-		if student.grade == grade:
-			count += 1
-	return count
 
 def roll_num_generator(grade):
 	grade_prefix = {
@@ -137,32 +119,23 @@ def add_student():
 	#giving option for branches
 	branch = get_valid_branch()
 
-	#roll_number
 	roll_num = roll_num_generator(grade)
 
 	student = Student(name,roll_num,grade,branch)
 
-	try:
-		with open("student.csv","a",newline = "") as file:
-			writer = csv.writer(file)
-			writer.writerow(student.to_file_format())
-
-		print("\nStudent Added.\n")
-		config.students.append(student)
-		print(student)
-		print()
-	except OSError as e:
-		print(f"Unable to save student data: {e}")
-		return
+	save_student(student)
+	print("\nStudent Added.")
+	print(student)
+	print()
 
 
 def find_student_by_roll(roll_num):
-	for current_student in config.students:
-		if current_student.roll_number == roll_num:
-			return current_student
+	student = load_student_by_roll_num(roll_num)
+	if student:
+		roll_num,name,grade,branch = student
+		current_student = Student(name,roll_num,grade,branch)
+		return current_student
 	return None
-
-
 
 
 def search_student():
@@ -180,19 +153,22 @@ def search_student():
 
 
 def view_all_students():
-	exist = students_exist()
-	if not exist:
+	students = load_students()
+	if not students:
+		print("No student exists.")
 		return
 	print("----------------------------------------------------------------------------------------------------------")
 	print(f"{'S.no.' : <8}{'Name' : <25}{'Roll Number' : <15}{'Grade' : <10}Branch")
 	print("----------------------------------------------------------------------------------------------------------")
 
 
-	for i,data in enumerate(config.students,start = 1):
+	for i,data in enumerate(students,start = 1):
 
 		print(f"{str(i)+'.' :<8}{data.name :<25}{data.roll_number : ^15}{data.grade : <10}{data.branch}")
 
 	print("\n")
+	print(f"Total students : {count_students()}\n")
+	print()
 
 def update_student_branch():
 	prompt = "Enter Student Roll Number : "
@@ -202,8 +178,8 @@ def update_student_branch():
 	if student:
 		branch = get_valid_branch()
 		student.update_branch(branch)
+		update_student_branch_db(branch,roll_num)
 		#later will keep branch change optioon only for students coming to 2nd yr. means for starting of 2nd yr. and will make separate classes for respective yrs.
-		save_all_students()
 		print("Student details updated.")
 		print()
 		print(student)
@@ -219,8 +195,8 @@ def update_student_grade():
 		#checking for valid grades.
 		grade = input_valid_grade()
 		student.update_grade(grade)
+		update_student_grade_db(grade,roll_num)
 		print()
-		save_all_students()
 		print("\nStudent details updated.\n")
 		print(student)
 	else:
@@ -261,8 +237,7 @@ def remove_student():
 	if student:
 		user_input = input(f"Are you sure you want to remove {student.name} (y/n) : ").strip().lower()
 		if user_input == "y":
-			config.students.remove(student)
-			save_all_students()
+			delete_student(roll_num)
 			print("\nStudent removed.\n")
 			print(student)
 		elif user_input == "n":

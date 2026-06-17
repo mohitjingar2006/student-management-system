@@ -6,28 +6,14 @@ import config
 from mask_input import get_masked_input
 
 class Admin:
-	def __init__(self,name,password):
+	def __init__(self,id,name,password):
+		self.id = id
 		self.__name = name
 		self.__password = password
 	def check_name(self,name):
 		return (self.__name == name)
 	def check_password(self,password):
 		return (self.__password == password)
-
-
-admin_name = ""
-admin_password = ""
-
-admin = None
-
-try:
-	with open("admin.csv",newline = "") as file:
-		reader = csv.reader(file)
-		admin_name ,admin_password = next(reader)
-	admin = Admin(admin_name,admin_password)
-except FileNotFoundError:
-	print("admin.csv file not found.")
-	print()
 
 
 def display_student_menu():
@@ -91,7 +77,7 @@ def display_teacher_menu():
 			print("\nInvalid Choice.\n")
 
 
-def admin_menu():
+def admin_menu(admin):
 	prompt = "Enter your name : "
 	admin_name = require_non_empty(prompt)
 	if admin.check_name(admin_name):
