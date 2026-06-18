@@ -2,7 +2,7 @@ from admin import admin_menu, Admin
 from teacher import load_teachers,teacher_menu
 from student import load_students
 from database import initialise_database,setup_admin,load_admin
-import config
+
 
 initialise_database()
 setup_admin()
@@ -15,7 +15,7 @@ except ValueError:
 
 # students = load_students()
 # config.students = load_students()
-config.teachers = load_teachers()
+#config.teachers = load_teachers()
 
 while True:
 	print("========================================================================================= Student Management System =============================================================================================")

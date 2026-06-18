@@ -1,6 +1,5 @@
+import json
 import sqlite3
-
-
 def get_connection():
 	return sqlite3.connect("student_management.db")
 
@@ -39,7 +38,7 @@ def initialise_database():
 	conn.commit()
 	conn.close()
 
-
+#admin setup
 
 def setup_admin():
 	conn = get_connection()
@@ -66,6 +65,7 @@ def load_admin():
 	return row
 
 
+#student setup
 def save_student(student):
 	conn = get_connection()
 	cursor = conn.cursor()
@@ -97,6 +97,7 @@ def load_students_from_database():
 	
 	conn.close()
 	return rows
+
 
 def load_student_by_roll_num(roll_num):
 	conn = get_connection()
@@ -168,7 +169,130 @@ def count_students():
 	cursor = conn.cursor()
 	cursor.execute("""
 		SELECT COUNT(*)
-		FROM STUDENTS
+		FROM students
 	""")
 	count, = cursor.fetchone()
 	return count
+
+def max_roll_num_grade(input_grade):
+	conn = get_connection()
+	cursor = conn.cursor()
+	cursor.execute("""
+		SELECT MAX(roll_number)
+		FROM students
+		WHERE grade = ?
+	""",(input_grade,)
+	)
+	result = cursor.fetchone()[0]
+	conn.commit()
+	conn.close()
+	return result
+
+#teacher setup
+def load_teachers_from_database():
+	conn = get_connection()
+	cursor = conn.cursor()
+	cursor.execute("""
+		SELECT *
+		FROM teachers
+	""")
+	rows = cursor.fetchall()
+	conn.close()
+	return rows
+
+def save_teacher(teacher):
+	conn = get_connection()
+	cursor = conn.cursor()
+	cursor.execute("""
+		INSERT INTO teachers
+		(ID,name,password,subject,grades)
+		VALUES
+		(?,?,?,?,?)
+	""",(
+		teacher.id,
+		teacher.name,
+		teacher.password,
+		teacher.subject,
+		json.dumps(teacher.grades)
+		)
+	)
+	conn.commit()
+	conn.close()
+
+
+def load_teacher_by_id(id):
+	conn = get_connection()
+	cursor = conn.cursor()
+	cursor.execute("""
+		SELECT *
+		FROM teachers
+		WHERE ID = ?
+	""",(id,)
+	)
+	teacher = cursor.fetchone()
+	conn.close()
+
+	return teacher
+
+
+def count_teachers():
+	conn = get_connection()
+	cursor = conn.cursor()
+	cursor.execute("""
+		SELECT COUNT(*)
+		FROM teachers
+	""")
+	count, = cursor.fetchone()
+	return count
+
+
+def delete_teacher(id):
+	conn = get_connection()
+	cursor = conn.cursor()
+	cursor.execute("""
+		DELETE FROM teachers
+		WHERE ID = ?
+	""",(id,)
+	)
+	conn.commit()
+	conn.close()
+
+
+def max_id():
+	conn = get_connection()
+	cursor = conn.cursor()
+	cursor.execute("""
+		SELECT MAX(ID)
+		FROM teachers
+	"""
+	)
+	result = cursor.fetchone()[0]
+	conn.commit()
+	conn.close()
+	return result
+
+
+def update_teacher_grades_db(input_grades,input_id):
+	conn = get_connection()
+	cursor = conn.cursor()
+	cursor.execute("""
+		UPDATE teachers
+		SET grades = ?
+		WHERE ID = ?
+	""",(input_grades,input_id)
+	)
+	conn.commit()
+	conn.close()
+
+
+def update_teacher_subject_db(input_subject,input_id):
+	conn = get_connection()
+	cursor = conn.cursor()
+	cursor.execute("""
+		UPDATE teachers
+		SET subject = ?
+		WHERE ID = ?
+	""",(input_subject,input_id)
+	)
+	conn.commit()
+	conn.close()

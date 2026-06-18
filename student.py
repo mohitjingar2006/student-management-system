@@ -16,10 +16,8 @@ VALID_BRANCHES = [
 ]
 
 
-import csv
-import config
 from utils import require_non_empty
-from database import load_students_from_database,save_student,load_student_by_roll_num,count_students_by_grade,update_student_branch_db,update_student_grade_db,delete_student,count_students
+from database import load_students_from_database,save_student,load_student_by_roll_num,count_students_by_grade,update_student_branch_db,update_student_grade_db,delete_student,count_students,max_roll_num_grade
 
 
 class Student:
@@ -43,21 +41,16 @@ class Student:
 		return [self.name,self.roll_number,self.grade,self.branch]
 
 
-def save_all_students():
-	with open("student.csv","w",newline = "") as file:
-		writer = csv.writer(file)
-		for student in config.students :
-			writer.writerow(student.to_file_format())
-
 
 def load_students():
 	students = []
 	rows = load_students_from_database()
 	for row in rows:
-		roll_num,name,grade,branch = row
+		roll_num,name,branch,grade = row
 		student = Student(name,roll_num,grade,branch)
 		students.append(student)
 	return students
+
 
 
 def students_exist():
@@ -104,9 +97,12 @@ def roll_num_generator(grade):
 		"4th Yr." : "4"
 	}
 
-	count = count_students_by_grade(grade)
-
-	return f"{grade_prefix[grade]}{count+1:02}"
+	last_roll = max_roll_num_grade(grade)
+	if last_roll is None:
+		return f"{grade_prefix[grade]}01"
+	last_roll = int(last_roll)
+	new_roll = str(last_roll + 1)
+	return new_roll
 
 
 def add_student():
@@ -132,7 +128,7 @@ def add_student():
 def find_student_by_roll(roll_num):
 	student = load_student_by_roll_num(roll_num)
 	if student:
-		roll_num,name,grade,branch = student
+		roll_num,name,branch,grade = student
 		current_student = Student(name,roll_num,grade,branch)
 		return current_student
 	return None

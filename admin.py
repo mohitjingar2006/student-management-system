@@ -1,8 +1,7 @@
-import csv
 from utils import require_non_empty
 from student import add_student,view_all_students,search_student,update_student_details,remove_student
 from teacher import add_teacher,view_all_teachers,search_teacher_by_id,update_teacher_details,remove_teacher
-import config
+
 from mask_input import get_masked_input
 
 class Admin:
