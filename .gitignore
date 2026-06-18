@@ -2,3 +2,7 @@ __pycache__/
 *.pyc
 .admin.py.swp
 .main.py.swp
+ui.__pycache__
+services.__pycache__
+models.__pycache__
+student_management.db

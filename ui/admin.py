@@ -1,18 +1,20 @@
+from services.student_service import (
+	add_student,
+	view_all_students,
+	search_student,
+	update_student_details,
+	remove_student
+)
+from services.teacher_service import(
+	add_teacher,
+	view_all_teachers,
+	search_teacher_by_id,
+	update_teacher_details,
+	remove_teacher
+)
+
 from utils import require_non_empty
-from student import add_student,view_all_students,search_student,update_student_details,remove_student
-from teacher import add_teacher,view_all_teachers,search_teacher_by_id,update_teacher_details,remove_teacher
-
 from mask_input import get_masked_input
-
-class Admin:
-	def __init__(self,id,name,password):
-		self.id = id
-		self.__name = name
-		self.__password = password
-	def check_name(self,name):
-		return (self.__name == name)
-	def check_password(self,password):
-		return (self.__password == password)
 
 
 def display_student_menu():
@@ -24,7 +26,6 @@ def display_student_menu():
 		print("3. Search Student")
 		print("4. Remove Student")
 		print("5. Update Student details")
-		#later I would give this option after opening the student details
 		print("6. Back to admin menu")
 		print("\n")
 		choice = input("Enter your choice : ")

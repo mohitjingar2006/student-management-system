@@ -1,5 +1,8 @@
 import json
 import sqlite3
+
+# Helper Functions
+
 def get_connection():
 	return sqlite3.connect("student_management.db")
 
@@ -16,7 +19,6 @@ def initialise_database():
 		);
 		""")
 	cursor.execute("""
-
 		CREATE TABLE IF NOT EXISTS teachers(
 			ID TEXT PRIMARY KEY,
 			name TEXT NOT NULL,
@@ -26,19 +28,16 @@ def initialise_database():
 		);
 		""")
 	cursor.execute("""
-
 		CREATE TABLE IF NOT EXISTS admin(
 			ID INT PRIMARY KEY,
 			name TEXT,
 			password TEXT
 		);
 		""")
-
-
 	conn.commit()
 	conn.close()
 
-#admin setup
+# Admin setup
 
 def setup_admin():
 	conn = get_connection()
@@ -65,7 +64,8 @@ def load_admin():
 	return row
 
 
-#student setup
+# Student setup
+
 def save_student(student):
 	conn = get_connection()
 	cursor = conn.cursor()
@@ -94,7 +94,7 @@ def load_students_from_database():
 	"""
 	)
 	rows = cursor.fetchall()
-	
+
 	conn.close()
 	return rows
 
@@ -125,6 +125,32 @@ def count_students_by_grade(input_grade):
 	count, = cursor.fetchone()
 	conn.close()
 	return count
+
+
+def count_students():
+	conn = get_connection()
+	cursor = conn.cursor()
+	cursor.execute("""
+		SELECT COUNT(*)
+		FROM students
+	""")
+	count, = cursor.fetchone()
+	conn.close()
+	return count
+
+def max_roll_num_grade(input_grade):
+	conn = get_connection()
+	cursor = conn.cursor()
+	cursor.execute("""
+		SELECT MAX(roll_number)
+		FROM students
+		WHERE grade = ?
+	""",(input_grade,)
+	)
+	result = cursor.fetchone()[0]
+	conn.commit()
+	conn.close()
+	return result
 
 
 def update_student_branch_db(input_branch,input_roll_num):
@@ -164,41 +190,8 @@ def delete_student(roll_num):
 	conn.close()
 
 
-def count_students():
-	conn = get_connection()
-	cursor = conn.cursor()
-	cursor.execute("""
-		SELECT COUNT(*)
-		FROM students
-	""")
-	count, = cursor.fetchone()
-	return count
 
-def max_roll_num_grade(input_grade):
-	conn = get_connection()
-	cursor = conn.cursor()
-	cursor.execute("""
-		SELECT MAX(roll_number)
-		FROM students
-		WHERE grade = ?
-	""",(input_grade,)
-	)
-	result = cursor.fetchone()[0]
-	conn.commit()
-	conn.close()
-	return result
-
-#teacher setup
-def load_teachers_from_database():
-	conn = get_connection()
-	cursor = conn.cursor()
-	cursor.execute("""
-		SELECT *
-		FROM teachers
-	""")
-	rows = cursor.fetchall()
-	conn.close()
-	return rows
+# Teacher setup
 
 def save_teacher(teacher):
 	conn = get_connection()
@@ -218,6 +211,18 @@ def save_teacher(teacher):
 	)
 	conn.commit()
 	conn.close()
+
+
+def load_teachers_from_database():
+	conn = get_connection()
+	cursor = conn.cursor()
+	cursor.execute("""
+		SELECT *
+		FROM teachers
+	""")
+	rows = cursor.fetchall()
+	conn.close()
+	return rows
 
 
 def load_teacher_by_id(id):
@@ -244,18 +249,6 @@ def count_teachers():
 	""")
 	count, = cursor.fetchone()
 	return count
-
-
-def delete_teacher(id):
-	conn = get_connection()
-	cursor = conn.cursor()
-	cursor.execute("""
-		DELETE FROM teachers
-		WHERE ID = ?
-	""",(id,)
-	)
-	conn.commit()
-	conn.close()
 
 
 def max_id():
@@ -293,6 +286,18 @@ def update_teacher_subject_db(input_subject,input_id):
 		SET subject = ?
 		WHERE ID = ?
 	""",(input_subject,input_id)
+	)
+	conn.commit()
+	conn.close()
+
+
+def delete_teacher(id):
+	conn = get_connection()
+	cursor = conn.cursor()
+	cursor.execute("""
+		DELETE FROM teachers
+		WHERE ID = ?
+	""",(id,)
 	)
 	conn.commit()
 	conn.close()

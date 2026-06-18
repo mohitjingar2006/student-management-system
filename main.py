@@ -1,11 +1,17 @@
-from admin import admin_menu, Admin
-from teacher import load_teachers,teacher_menu
-from student import load_students
-from database import initialise_database,setup_admin,load_admin
+from models.admin_model import Admin
+from ui.admin import admin_menu
+from ui.teacher import teacher_menu
 
+from database import (
+	initialise_database,
+	setup_admin,
+	load_admin
+)
 
 initialise_database()
 setup_admin()
+
+
 #Unpacking load_admin row
 try:
 	admin_id, admin_name, admin_password = load_admin()
@@ -13,9 +19,6 @@ try:
 except ValueError:
 	admin = None
 
-# students = load_students()
-# config.students = load_students()
-#config.teachers = load_teachers()
 
 while True:
 	print("========================================================================================= Student Management System =============================================================================================")

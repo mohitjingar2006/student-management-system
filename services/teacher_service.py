@@ -1,78 +1,24 @@
 import json
-VALID_GRADES = {
-		"1" : "1st Yr.",
-		"2" : "2nd Yr.",
-		"3" : "3rd Yr.",
-		"4" : "4th Yr."
-		}
-VALID_SUBJECTS = {
-	"1" : "Electrical",
-	"2" : "Mechanical",
-	"3" : "CSE",
-	"4" : "AI/DS",
-	"5" : "Chemical",
-	"6" : "Materials",
-	"7" : "Bioengineering",
-	"8" : "ES",
-	"9" : "Optics",
-	"10": "Aeronautics",
-	"11": "Mathematics",
-	"12": "Chemistry",
-	"13": "Physics"
-}
 
-
-
-from student import view_all_students,search_student
 from utils import require_non_empty
-from mask_input import get_masked_input
-from database import load_teachers_from_database, save_teacher, delete_teacher ,count_teachers, load_teacher_by_id, max_id, update_teacher_grades_db, update_teacher_subject_db
+
+from database import (
+    load_teachers_from_database,
+    load_teacher_by_id,
+    count_teachers,
+    max_id,
+    update_teacher_grades_db,
+    update_teacher_subject_db,
+    save_teacher,
+    delete_teacher,
+)
+
+from models.teacher_model import Teacher
+
+from constants import VALID_SUBJECTS
 
 
-class Teacher:
-	def __init__(self,name,ID,password,subject,grades):
-		self.name = name
-		self.id = ID
-		self.password = password
-		self.subject = subject
-		self.grades = grades
-	def check_password(self,password):
-		return (self.password == password)
-	def check_name(self,name):
-		return self.name == name
-	def check_id(self,id):
-		return self.id == id
-	def update_grades(self,grades):
-			self.grades = grades
-	def update_subject(self,subject):
-			self.subject = subject
-	def __str__(self):
-		return (
-			f"{'Name' :<12}: {self.name}\n"
-			f"{'ID' :<12}: {self.id}\n"
-			f"{'Subject' :<12}: {self.subject}\n"
-			f"{'Grades' :<12}: {self.grades}\n"
-			)
-	def to_file_format(self):
-		return [
-			self.name,
-			self.id,
-			self.password,
-			self.subject,
-			",".join(self.grades)
-			]
-
-
-def load_teachers():
-	teachers = []
-	rows = load_teachers_from_database()
-	for row in rows:
-		id,name,password,subject,grades = row
-		grades = json.loads(grades)
-		teacher = Teacher(name,id,password,subject,grades)
-		teachers.append(teacher)
-	return teachers
-
+# Helper Functions
 
 def teacher_exist():
 	count = count_teachers()
@@ -81,72 +27,6 @@ def teacher_exist():
 		print()
 		return False
 	return True
-
-
-def find_teacher_by_id(id):
-	teacher = load_teacher_by_id(id)
-	if teacher:
-		id,name,password,subject,grades = teacher
-		current_teacher = Teacher(name,id,password,subject,grades)
-		return current_teacher
-	print("\nTeacher not found.\n")
-	print()
-	return None
-
-
-
-def teacher_menu():
-	if not(teacher_exist()):
-		return
-	while True:
-		print("Teacher menu :")
-		print("\n\n")
-		print("1. Login")
-		print("2. Back to main menu")
-		print("\n\n")
-		choice = input("Enter your choice : ")
-		print()
-		if choice == "1":
-			prompt = "Please Enter Your ID : "
-			id = require_non_empty(prompt)
-			exist = False
-			teacher = find_teacher_by_id(id)
-			if teacher:
-				print("Enter your password : ",end = '',flush = True)
-				password = get_masked_input()
-				if teacher.check_password(password):
-					print()
-					print("Login Successful.")
-					print()
-					print(f"Welcome {teacher.name}")
-					while True:
-						print("\n\nMenu :\n\n")
-						print("1. View All Students")
-						print("2. Search Student")
-						print("3. Logout")
-						print()
-
-						teacher_choice = input("Enter your choice : ").strip()
-						print()
-						if teacher_choice == "1":
-							view_all_students()
-						elif teacher_choice == "2":
-							search_student()
-						elif teacher_choice == "3":
-							print()
-							print("Logging out...")
-							print()
-							break
-				else:
-					print("\nInvalid Password\n")
-		elif choice == "2":
-			print("Back to main menu...")
-			print()
-			break
-		else:
-			print("Invalid Input.")
-			print()
-
 
 
 def teacher_id_generator():
@@ -179,6 +59,21 @@ def get_valid_subject():
 			print("\nInvalid Input.\n")
 
 
+def find_teacher_by_id(id):
+	teacher = load_teacher_by_id(id)
+	if teacher:
+		id,name,password,subject,grades = teacher
+		grades = json.loads(grades)
+		current_teacher = Teacher(name,id,password,subject,grades)
+		return current_teacher
+	print("\nTeacher not found.\n")
+	print()
+	return None
+
+
+# Core Business logic
+
+## Create
 def add_teacher():
 	prompt = "Enter Name of the Teacher : "
 	name = require_non_empty(prompt)
@@ -197,6 +92,17 @@ def add_teacher():
 	print(teacher)
 	print()
 
+## Read
+
+def load_teachers():
+	teachers = []
+	rows = load_teachers_from_database()
+	for row in rows:
+		id,name,password,subject,grades = row
+		grades = json.loads(grades)
+		teacher = Teacher(name,id,password,subject,grades)
+		teachers.append(teacher)
+	return teachers
 
 
 def search_teacher_by_id():
@@ -209,6 +115,8 @@ def search_teacher_by_id():
 		print(teacher)
 		print()
 		return
+
+## Update
 
 def update_subject(teacher):
 	print()
@@ -256,6 +164,7 @@ def update_teacher_details():
 		print()
 
 
+## Delete
 def remove_teacher():
 	if teacher_exist():
 		prompt = "Enter teacher ID : "
@@ -277,6 +186,7 @@ def remove_teacher():
 				print()
 
 
+## Display
 def view_all_teachers():
 	teachers = load_teachers()
 	if not teachers:

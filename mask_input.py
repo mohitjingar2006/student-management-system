@@ -1,4 +1,6 @@
 import os
+
+
 def get_masked_input_windows():
 	import msvcrt
 	password_lst = []
@@ -16,7 +18,6 @@ def get_masked_input_windows():
 		else:
 			password_lst.append(ch)
 			print("*",end = '',flush = True)
-
 
 
 def get_masked_input_posix():
@@ -53,4 +54,3 @@ def get_masked_input():
 	if os.name == 'nt':
 		return get_masked_input_windows()
 	return get_masked_input_posix()
-	
