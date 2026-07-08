@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{student.name}} | Student Management System
+{% endblock %}
+
+{% block header %}
+
+{% if session.get("admin_name") %}
+{% include "students/admin-navbar.html" %}
+{% else %}
+{% include "students/teacher-navbar.html" %}
+{% endif %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="view-student">
+    {% if student %}
+    <table>
+        <tr>
+            <th>Name</th>
+            <td>{{ student.name }}</td>
+        </tr>
+        <tr>
+            <th>Roll Number</th>
+            <td>{{ student.roll_number }}</td>
+        </tr>
+        <tr>
+            <th>Grade</th>
+            <td>{{ student.grade }}</td>
+        </tr>
+        <tr>
+            <th>Branch</th>
+            <td>{{ student.branch }}</td>
+        </tr>
+    </table>
+
+    {% else %}
+    <h3>Student not found!</h3>
+
+    {% endif %}
+</div>
+
+{% endblock %}

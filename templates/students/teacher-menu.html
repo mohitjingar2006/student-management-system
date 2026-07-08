@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}
+
+Welcome {{session.get("teacher_name")}} to Student Menu | Student Management System
+
+{% endblock %}
+
+{% block header %}
+{% include "students/teacher-navbar.html" %}
+{% endblock %}
+{% block content %}
+
+<div class="student-teacher-menu">
+    <h3>Student Menu :</h3>
+    <ol>
+        <li><a href="{{url_for('students.view_all_students')}}" class="student-menu">View All Students</a></li>
+        <li><a href="{{url_for('students.search_student')}}" class="student-menu">Search Student</a></li>
+        <li><a href="{{url_for('teachers.teacher_logout')}}" class="student-menu">Logout</a></li>
+    </ol>
+</div>
+
+{% endblock %}

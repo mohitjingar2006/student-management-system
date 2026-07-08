@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="login">
+    <h2 id="main-menu">Main Menu :</h2>
+    <ol>
+        <li><a href="{{url_for('admin.admin_login')}}" class="main-menu">Login as Admin</a></li>
+        <li><a href="{{url_for('teachers.teacher_login')}}" class="main-menu">Login as Teacher</a></li>
+        <li><a href="{{url_for('exit')}}" class="main-menu">Exit</a></li>
+    </ol>
+</div>
+
+{% endblock %}

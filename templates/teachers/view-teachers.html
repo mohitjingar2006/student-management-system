@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}
+View Teachers | Student Management System
+{% endblock %}
+
+{% block header %}
+
+{% include "teachers/admin-navbar.html" %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="view-teachers">
+
+    <h2 id="title">Student Management System</h2>
+
+    <table>
+        <caption>Teacher Details</caption>
+        <tr>
+            <th>S.no</th>
+            <th>Name</th>
+            <th>ID</th>
+            <th>Subject</th>
+            <th>Grades</th>
+        </tr>
+        {% for teacher in teachers %}
+        <tr>
+            <td>{{loop.index}}</td>
+            <td>{{teacher.name}}</td>
+            <td>{{teacher.id}}</td>
+            <td>{{teacher.subject}}</td>
+            <td>{{",".join(teacher.grades)}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</div>
+
+{% endblock %}

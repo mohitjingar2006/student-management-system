@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}
+Teacher | Student Management System
+{% endblock %}
+
+{% block header %}
+
+{% include "teachers/admin-navbar.html" %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="remove-teacher">
+    <label for="id">Enter Teacher ID:</label>
+    <input type="text" id="id" name="id" required>
+    <button type="submit" id="submit-btn">Enter</button>
+</div>
+
+{% endblock %}

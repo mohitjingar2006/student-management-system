@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block header %}
+
+{% if session.get("admin_name") %}
+{% include "students/admin-navbar.html" %}
+{% else %}
+{% include "students/teacher-navbar.html" %}
+{% endif %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="search-student">
+    <form method="POST">
+        <label for="roll-number">Enter student roll number:</label>
+        <input type="text" id="roll-number" name="roll-number" required>
+        <button type="submit" class="submit-btn">Search</button>
+    </form>
+</div>
+
+{% endblock %}

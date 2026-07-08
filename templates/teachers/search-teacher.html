@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block header %}
+
+{% include "teachers/admin-navbar.html" %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="search-teacher">
+    <form method="POST">
+        <label for="id">Enter Teacher ID:</label>
+        <input type="text" id="id" name="id" required>
+        <button type="submit" class="submit-btn">Search</button>
+    </form>
+</div>
+
+{% endblock %}

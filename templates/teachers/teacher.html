@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+Teacher-authentication | Student Management System
+{% endblock %}
+
+{% block content %}
+
+<div class="teacher_authentication">
+    {% if message %}
+    <div class="msg">
+        {{ message }}
+    </div>
+    {% endif %}
+
+    <form method="POST">
+        <label for="teacher-id">Enter your ID:</label><br>
+        <input type="text" id="teacher-id" name="teacher-id" required><br>
+
+        <label for="teacher-password">Enter your password :</label><br>
+        <input type="password" id="teacher-password" name="teacher-password" required>
+
+        <button type="submit" class="submit-btn">Login</button>
+    </form>
+</div>
+
+{% endblock %}

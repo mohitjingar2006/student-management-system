@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}
+Student | Student Management System
+{% endblock %}
+
+{% block header %}
+{% include "students/admin-navbar.html" %}
+{% endblock %}
+
+{% block content %}
+
+<div class="remove-student">
+    <label for="roll-number">Enter Student Roll Number:</label>
+    <input type="text" id="roll-number" name="roll-number" required>
+    <button type="submit" id="submit-btn">Enter</button>
+</div>
+
+{% endblock %}

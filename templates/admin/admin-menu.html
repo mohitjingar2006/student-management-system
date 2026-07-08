@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}
+
+Welcome {{session.get("admin_name")}} to Student Management System | xyz college
+
+{% endblock %}
+
+{% block content %}
+<div class="admin-menu">
+    <h3>Logged in as {{session.get("admin_name")}}.</h3>
+    <br>
+    <h3>Menu :</h3>
+    <br>
+    <ol>
+        <li><a href="{{url_for('students.student_admin_menu')}}" class="menu">Student Menu</a></li>
+        <li><a href="{{url_for('teachers.teacher_admin_menu')}}" class="menu">Teacher Menu</a></li>
+        <li><a href="{{url_for('admin.admin_logout')}}" class="menu">Logout</a></li>
+    </ol>
+</div>
+{% endblock %}

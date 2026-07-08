@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{teacher.name}} | Student Management System
+{% endblock %}
+
+{% block header %}
+
+{% include "teachers/admin-navbar.html" %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="view-teacher">
+    {% if teacher %}
+    <table>
+        <tr>
+            <th>Name</th>
+            <td>{{ teacher.name }}</td>
+        </tr>
+        <tr>
+            <th>ID</th>
+            <td>{{ teacher.id }}</td>
+        </tr>
+        <tr>
+            <th>Subject</th>
+            <td>{{ teacher.subject }}</td>
+        </tr>
+        <tr>
+            <th>Grades</th>
+            <td>{{ ",".join(teacher.grades) }}</td>
+        </tr>
+    </table>
+
+    {% else %}
+    <h3>Teacher not found!</h3>
+
+    {% endif %}
+</div>
+
+{% endblock %}

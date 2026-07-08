@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}
+Update Student | Student Management System
+{% endblock %}
+
+{% block header %}
+{% include "students/admin-navbar.html" %}
+{% endblock %}
+
+{% block content %}
+
+<div class="update-menu">
+    <h3>Update Menu :</h3>
+    <ol>
+        <li><a href="{{url_for('students.update_student_branch')}}" class="update-link">Update Branch</a></li>
+        <li><a href="{{url_for('students.update_student_grade')}}" class="update-link">Update Grade</a></li>
+        <li><a href="{{url_for('students.student_admin_menu')}}" class="update-link">Back to Student Menu</a></li>
+    </ol>
+</div>
+
+
+
+{% endblock %}

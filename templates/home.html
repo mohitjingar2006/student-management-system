@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="home">
+    <h1 id="title">Student Management System</h1>
+
+    <div class="login_choice">
+        {%if message%}
+        <div id="exit-msg">
+            {{message}}
+        </div>
+        {%endif%}
+        <ol>
+            <li><a href="{{url_for('login')}}" id="login">Login</a></li>
+        </ol>
+    </div>
+</div>
+
+{% endblock %}

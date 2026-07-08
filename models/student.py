@@ -15,5 +15,3 @@ class Student:
 		self.branch = branch
 	def update_grade(self,grade):
 		self.grade = grade
-	def to_file_format(self):
-		return [self.name,self.roll_number,self.grade,self.branch]

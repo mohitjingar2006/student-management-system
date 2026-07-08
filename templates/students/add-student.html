@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}
+Add Student | Student Management System
+{% endblock %}
+
+{% block header %}
+
+{% include "students/admin-navbar.html" %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="add-student">
+
+    <form method="POST">
+        <fieldset>
+            <legend>Student Inforamtion</legend>
+
+            <label for="student-name">Name</label>
+            <input type="text" id="student-name" name="student-name" required>
+
+            <label for="grade">Select Grade</label>
+            <div class="radio-group">
+                <label for="1stYr">1st Year</label>
+                <input type="radio" id="1stYr" name="grade" value="1st Year" required>
+            </div>
+            <div class="radio-group">
+                <label for="2ndYr">2nd Year</label>
+                <input type="radio" id="2ndYr" name="grade" value="2nd Year" required>
+            </div>
+            <div class="radio-group">
+                <label for="3rdYr">3rd Year</label>
+                <input type="radio" id="3rdYr" name="grade" value="3rd Year" required>
+            </div>
+            <div class="radio-group">
+                <label for="4thYr">4th Year</label>
+                <input type="radio" id="4thYr" name="grade" value="4th Year" required>
+            </div>
+            <label for="student-branch">Branch</label>
+            <select id="branch" name="student-branch" required>
+                <option value="" disabled selected>Select Branch</option>
+                <option value="Electrical">Electrical</option>
+                <option value="Mechanical">Mechanical</option>
+                <option value="CSE">CSE</option>
+                <option value="AI/DS">AI/DS</option>
+                <option value="Chemical">Chemical</option>
+                <option value="Materials">Materials</option>
+                <option value="Bioengineering">Bioengineering</option>
+                <option value="ES">ES</option>
+                <option value="Optics">Optics</option>
+                <option value="Aeronautics">Aeronautics</option>
+                <option value="Mathematics">Mathematics</option>
+                <option value="Chemistry">Chemistry</option>
+                <option value="Physics">Physics</option>
+            </select>
+        </fieldset>
+        <!-- The user explicitly clicks this when they are completely finished -->
+        <button type="submit" class="submit-btn">Add Student</button>
+    </form>
+</div>
+
+{% endblock %}
