@@ -12,16 +12,16 @@ from flask import (
 
 from database import (
     save_teacher,
-    delete_teacher
+    delete_teacher,
+    update_teacher_grades_db,
+    update_teacher_subject_db
 )
 from models.teacher_model import Teacher
 from services.teacher_service import (
     load_teachers,
     teacher_id_generator,
     password_generator,
-    find_teacher_by_id,
-    update_teacher_grades_db,
-    update_teacher_subject_db
+    find_teacher_by_id
 )
 from utils.decorators import (
     admin_required,
