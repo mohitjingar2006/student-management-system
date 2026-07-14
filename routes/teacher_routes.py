@@ -46,13 +46,7 @@ def view_teacher(teacher_id : str) -> Response:
     if teacher:
         return render_template(
             "teachers/view-teacher.html",
-            teacher = Teacher(
-                name=teacher["name"],
-                id=teacher["ID"],
-                password=teacher["password"],
-                subject=teacher["subject"],
-                grades=json.loads(teacher["grades"])
-            )
+            teacher = teacher
         )
     flash("Teacher not found","error")
     return redirect(url_for("teachers.teacher_admin_menu"))
@@ -90,6 +84,9 @@ def add_teacher() -> Response:
         subject = request.form.get("teacher-subject")
         password = password_generator()
         grades = request.form.getlist("grades")
+        if not grades:
+            flash("Please select at least one subject","error")
+            return redirect(url_for("teachers.add_teacher"))
         teacher_id = teacher_id_generator()
         new_teacher = Teacher(name,teacher_id,password,subject,grades)
         save_teacher(new_teacher)
@@ -100,7 +97,7 @@ def add_teacher() -> Response:
                 teacher_id = teacher_id
             )
         )
-    return render_template("teachers/add-teachers.html")
+    return render_template("teachers/add-teacher.html")
 
 
 # Read
@@ -180,9 +177,11 @@ def remove_teacher() -> Response:
         teacher_id = request.form.get("id")
         teacher = find_teacher_by_id(teacher_id)
         if teacher:
-            return render_template(
-                "teachers/confirm-delete.html",
+            return redirect(
+                url_for(
+                "teachers.confirm_delete",
                 teacher_id = teacher_id
+                )
             )
         else:
             flash("Teacher not found!","error")
@@ -190,16 +189,22 @@ def remove_teacher() -> Response:
     return render_template("teachers/remove-teacher.html")
 
 
-@teachers_bp.route("/delete/<teacher_id>",methods=["POST"])
+@teachers_bp.route("/delete/<teacher_id>",methods=["GET","POST"])
 @admin_required
 def confirm_delete(teacher_id : str) -> Response:
-    button_clicked = request.form.get("action")
-    if button_clicked == "submit":
-        delete_teacher(teacher_id)
-        flash("Teacher deleted successfully.","success")
+    teacher = find_teacher_by_id(teacher_id)
+    if request.method == "POST":
+        button_clicked = request.form.get("action")
+        if button_clicked == "submit":
+            delete_teacher(teacher_id)
+            flash("Teacher deleted successfully.","success")
+            return redirect(url_for("teachers.remove_teacher"))
+        flash("Operation Cancelled!","cancel")
         return redirect(url_for("teachers.remove_teacher"))
-    flash("Operation Cancelled!","cancel")
-    return redirect(url_for("teachers.remove_teacher"))
+    return render_template(
+        "teachers/confirm-delete.html",
+        teacher = teacher
+    )
 
 
 ## Teacher part
@@ -212,7 +217,7 @@ def teacher_login() -> Response:
         teacher = find_teacher_by_id(teacher_id)
         if teacher and teacher.check_password(password):
             session["teacher_name"] = teacher.name
-            return redirect(url_for("teachers.teacher_menu"))
+            return redirect(url_for(".teacher_menu"))
         else:
             flash("Incorrect username or password.","error")
             return redirect(url_for("teachers.teacher_login"))
@@ -222,7 +227,7 @@ def teacher_login() -> Response:
 @teachers_bp.route("/teacher-menu")
 @teacher_required
 def teacher_menu() -> Response:
-    return render_template("teachers/teacher-menu.html")
+    return render_template("students/teacher-menu.html")
 
 
 @teachers_bp.route("/logout")

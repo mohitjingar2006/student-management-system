@@ -93,7 +93,7 @@ def add_student() -> Response:
                 roll_number = roll_number
             )
         )
-    return render_template("students/add-students.html")
+    return render_template("students/add-student.html")
 
 
 # Read
@@ -171,9 +171,11 @@ def remove_student() -> Response:
         roll_number = request.form.get("roll-number")
         student = find_student_by_roll_number(roll_number)
         if student:
-            return render_template(
-                "students/confirm-delete.html",
-                roll_number = roll_number
+            return redirect(
+                url_for(
+                    "students.confirm_delete",
+                    roll_number = roll_number
+                    )
             )
         else:
             flash("Student not found!","error")
@@ -181,13 +183,21 @@ def remove_student() -> Response:
     return render_template("students/remove-student.html")
     
 
-@students_bp.route("/delete/<roll_number>",methods=["POST"])
+@students_bp.route("/delete/<roll_number>",methods=["GET","POST"])
 @admin_required
 def confirm_delete(roll_number : str) -> Response:
-    button_clicked = request.form.get("action")
-    if button_clicked == "submit":    
-        delete_student(roll_number)
-        flash("Student deleted successfully.","success")
-    else:
-        flash("Operation Cancelled!","cancel")
-    return redirect(url_for("students.remove_student"))
+    student = find_student_by_roll_number(roll_number)
+    if request.method == "POST":
+        button_clicked = request.form.get("action")
+        if button_clicked == "submit":    
+            delete_student(roll_number)
+            flash("Student deleted successfully.","success")
+            return redirect(url_for("students.remove_student"))
+        else:
+            flash("Operation Cancelled!","cancel")
+            return redirect(url_for("students.remove_student"))
+    return render_template(
+        "students/confirm-delete.html",
+        student = student
+        )
+    
