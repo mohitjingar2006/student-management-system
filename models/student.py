@@ -1,7 +1,7 @@
 class Student:
-	def __init__(self,name,roll_num,grade,branch):
+	def __init__(self,name,roll_number,grade,branch):
 		self.name = name
-		self.roll_number = roll_num
+		self.roll_number = roll_number
 		self.grade = grade
 		self.branch = branch
 	def __str__(self):
@@ -11,7 +11,3 @@ class Student:
 			f"{'Grade' :<12}: {self.grade}\n"
 			f"{'Branch' :<12}: {self.branch}\n"
 			)
-	def update_branch(self,branch):
-		self.branch = branch
-	def update_grade(self,grade):
-		self.grade = grade

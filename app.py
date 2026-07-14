@@ -11,7 +11,10 @@ from routes.admin_routes import admin_bp
 from routes.student_routes import students_bp
 from routes.teacher_routes import teachers_bp
 
-from database import initialise_database
+from database import (
+    initialise_database,
+    setup_admin
+)
 
 load_dotenv()
 
@@ -19,6 +22,7 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 initialise_database()
+setup_admin()
 
 # register blueprints
 

@@ -17,7 +17,6 @@
 {% block content %}
 
 <div class="view-student">
-    {% if student %}
     <table>
         <tr>
             <th>Name</th>
@@ -36,11 +35,6 @@
             <td>{{ student.branch }}</td>
         </tr>
     </table>
-
-    {% else %}
-    <h3>Student not found!</h3>
-
-    {% endif %}
 </div>
 
 {% endblock %}

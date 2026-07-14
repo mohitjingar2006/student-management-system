@@ -16,25 +16,7 @@ Update Grades | Student Management System
     <form method="POST">
         <label for="id">Enter Teacher ID</label>
         <input type="text" id="id" name="id" required>
-
-        <label>Select Grades</label>
-        <div class="form-check">
-            <label for="1stYr">1st Year</label>
-            <input type="radio" id="1stYr" name="grades" value="1st Year" required>
-        </div>
-        <div class="form-check">
-            <label for="2ndYr">2nd Year</label>
-            <input type="radio" id="2ndYr" name="grades" value="2nd Year" required>
-        </div>
-        <div class="form-check">
-            <label for="3rdYr">3rd Year</label>
-            <input type="radio" id="3rdYr" name="grades" value="3rd Year" required>
-        </div>
-        <div class="form-check">
-            <label for="4thYr">4th Year</label>
-            <input type="radio" id="4thYr" name="grades" value="4th Year" required>
-        </div>
-
+        {% include "teachers/grades.html" %}
         <button type="submit" class="submit-btn">Submit</button>
     </form>
 </div>

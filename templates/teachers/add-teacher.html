@@ -15,47 +15,11 @@ Add Teacher | Student Management System
 <div class="add-teacher">
     <form method="POST">
         <fieldset>
-            <legend>Teacher Inforamtion</legend>
-
+            <legend>Teacher Information</legend>
             <label for="teacher-name">Name</label>
             <input type="text" id="teacher-name" name="teacher-name" required>
-
-            <label for="teacher-subject">Subject</label>
-            <select id="teacher-subject" name="teacher-subject" required>
-                <option value="" disabled selected>Select Subject</option>
-                <option value="Electrical">Electrical</option>
-                <option value="Mechanical">Mechanical</option>
-                <option value="CSE">CSE</option>
-                <option value="AI/DS">AI/DS</option>
-                <option value="Chemical">Chemical</option>
-                <option value="Materials">Materials</option>
-                <option value="Bioengineering">Bioengineering</option>
-                <option value="ES">ES</option>
-                <option value="Optics">Optics</option>
-                <option value="Aeronautics">Aeronautics</option>
-                <option value="Mathematics">Mathematics</option>
-                <option value="Chemistry">Chemistry</option>
-                <option value="Physics">Physics</option>
-            </select>
-
-            <label for="grades">Select Grades</label>
-            <div class="radio-group">
-                <label for="1stYr">1st Year</label>
-                <input type="checkbox" id="1stYr" name="grades" value="1st Year" required>
-            </div>
-            <div class="radio-group">
-                <label for="2ndYr">2nd Year</label>
-                <input type="checkbox" id="2ndYr" name="grades" value="2nd Year" required>
-            </div>
-            <div class="radio-group">
-                <label for="3rdYr">3rd Year</label>
-                <input type="checkbox" id="3rdYr" name="grades" value="3rd Year" required>
-            </div>
-            <div class="radio-group">
-                <label for="4thYr">4th Year</label>
-                <input type="checkbox" id="4thYr" name="grades" value="4th Year" required>
-            </div>
-
+            {% include "teachers/subjects.html" %}
+            {% include "teachers/grades.html" %}
         </fieldset>
     </form>
 </div>

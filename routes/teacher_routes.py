@@ -1,13 +1,19 @@
 import json
 from flask import (
     Blueprint,
+    session,
+    Response,
     render_template,
-    request,redirect,
+    request,
+    redirect,
     url_for,
     flash
 )
 
-from database import save_teacher
+from database import (
+    save_teacher,
+    delete_teacher
+)
 from models.teacher_model import Teacher
 from services.teacher_service import (
     load_teachers,
@@ -17,7 +23,12 @@ from services.teacher_service import (
     update_teacher_grades_db,
     update_teacher_subject_db
 )
+from utils.decorators import (
+    admin_required,
+    teacher_required
+)
 
+# blueprint
 teachers_bp = Blueprint(
     "teachers",
     __name__,
@@ -28,16 +39,20 @@ teachers_bp = Blueprint(
 
 # Helper function
 
-@teachers_bp.route("/view-teacher/<id>")
-def view_teacher(id):
-    teacher = find_teacher_by_id(id)
+@teachers_bp.route("/view-teacher/<teacher_id>")
+@admin_required
+def view_teacher(teacher_id : str) -> Response:
+    teacher = find_teacher_by_id(teacher_id)
     if teacher:
-        id, name, password, subject, grades = teacher
-        grades = json.loads(grades)
-        teacher = Teacher(name,id,password,subject,grades)
         return render_template(
             "teachers/view-teacher.html",
-            teacher = teacher
+            teacher = Teacher(
+                name=teacher["name"],
+                id=teacher["ID"],
+                password=teacher["password"],
+                subject=teacher["subject"],
+                grades=json.loads(teacher["grades"])
+            )
         )
     flash("Teacher not found","error")
     return redirect(url_for("teachers.teacher_admin_menu"))
@@ -46,12 +61,14 @@ def view_teacher(id):
 # Core Business logic
 
 @teachers_bp.route("/admin-menu")
-def teachers_admin_menu():
+@admin_required
+def teachers_admin_menu() -> Response:
     return render_template("teachers/admin-menu.html")
 
 
 # View
 @teachers_bp.route("/view")
+@admin_required
 def view_all_teachers():
     teachers = load_teachers()
     if teachers:
@@ -60,36 +77,43 @@ def view_all_teachers():
             teachers = teachers
         )
     flash("No teachers exist!","error")
+    return redirect(url_for("teachers.teachers_admin_menu"))
 
 
 # Add
 
 @teachers_bp.route("/add-teacher", methods=["GET","POST"])
-def add_teacher():
+@admin_required
+def add_teacher() -> Response:
     if request.method == "POST":
         name = request.form.get("teacher-name")
         subject = request.form.get("teacher-subject")
         password = password_generator()
         grades = request.form.getlist("grades")
-        id = teacher_id_generator()
-        new_teacher = Teacher(name,id,password,subject,grades)
+        teacher_id = teacher_id_generator()
+        new_teacher = Teacher(name,teacher_id,password,subject,grades)
         save_teacher(new_teacher)
         flash("Teacher added successfully...","success")
-       return redirect(
-        url_for("teachers.view_teacher"),
-        roll_num = roll_num
+        return redirect(
+            url_for(
+                "teachers.view_teacher",
+                teacher_id = teacher_id
+            )
         )
     return render_template("teachers/add-teachers.html")
 
 
 # Read
 @teachers_bp.route("/search-teacher",methods=["GET","POST"])
-def search_teacher():
+@admin_required
+def search_teacher() -> Response:
     if request.method == "POST":
-        id = request.form.get("id")
+        teacher_id = request.form.get("id")
         return redirect(
-            url_for("teachers.view_teacher"),
-            id = id
+            url_for(
+                "teachers.view_teacher",
+                teacher_id = teacher_id
+                )
             )
     return render_template("teachers/search-teacher.html")
 
@@ -97,102 +121,114 @@ def search_teacher():
 # Update
 
 @teachers_bp.route("/update-teacher-details")
-def update_teacher_details():
-    return render_template("update-teacher-details.html")
+@admin_required
+def update_teacher_details() -> Response:
+    return render_template("teachers/update-teacher-details.html")
 
 
-@students_bp.route("/update-branch",methods=["GET","POST"])
-def update_teacher_subject():
+@teachers_bp.route("/update-subject",methods=["GET","POST"])
+@admin_required
+def update_teacher_subject() -> Response:
     if request.method == "POST":
-        id = request.form.get("id")
+        teacher_id = request.form.get("id")
         subject = request.form.get("teacher-subject")
-        teacher = find_teacher_by_id(id)
+        teacher = find_teacher_by_id(teacher_id)
         if teacher:
-            update_teacher_subject_db(subject,id)
+            update_teacher_subject_db(subject,teacher_id)
             flash("Teacher subject changed successfully.","success")
             return redirect(
-                url_for("teachers.view_teacher"),
-                id = id
+                url_for(
+                    "teachers.view_teacher",
+                    teacher_id = teacher_id
+                    )
             )
-        flash("Teacher not found!","error")
+        else:
+            flash("Teacher not found!","error")
+            return redirect(url_for("teachers.update_teacher_subject"))
     return render_template("teachers/update-subject.html")
 
 
-@students_bp.route("/update-grades",methods=["GET","POST"])
-def update_teacher_grades():
+@teachers_bp.route("/update-grades",methods=["GET","POST"])
+@admin_required
+def update_teacher_grades() -> Response:
     if request.method == "POST":
-        id = request.form.get("id")
+        teacher_id = request.form.get("id")
         grades = request.form.getlist("grades")
         grades = json.dumps(grades)
-        teacher = find_teacher_by_id(id)
+        teacher = find_teacher_by_id(teacher_id)
         if teacher:
-            update_teacher_grades_db(grades,id)
+            update_teacher_grades_db(grades,teacher_id)
             flash("Teachers grades changed successfully.","success")
             return redirect(
-                url_for("teachers.view_teacher"),
-                id = id
+                url_for(
+                    "teachers.view_teacher",
+                    teacher_id = teacher_id
+                    )
             )
-        flash("Teacher not found!","error")
+        else:
+            flash("Teacher not found!","error")
+            return redirect(url_for("teachers.update_teacher_grades"))
     return render_template("teachers/update-grades.html")
 
 
 # Delete
 
 @teachers_bp.route("/remove-teacher",methods=["GET","POST"])
-def remove_teacher():
+@admin_required
+def remove_teacher() -> Response:
     if request.method == "POST":
-        id = request.form.get("id")
-        teacher = find_teacher_by_id(id)
+        teacher_id = request.form.get("id")
+        teacher = find_teacher_by_id(teacher_id)
         if teacher:
             return render_template(
                 "teachers/confirm-delete.html",
-                id = id
+                teacher_id = teacher_id
             )
-        flash("Teacher not found!","error")
+        else:
+            flash("Teacher not found!","error")
+            return redirect(url_for("teachers.remove_teacher"))
     return render_template("teachers/remove-teacher.html")
 
 
-@teachers_bp.route("/delete/<id>",methods=["POST"])
-def confirm_delete(id):
+@teachers_bp.route("/delete/<teacher_id>",methods=["POST"])
+@admin_required
+def confirm_delete(teacher_id : str) -> Response:
     button_clicked = request.form.get("action")
     if button_clicked == "submit":
-        delete_teacher(id)
+        delete_teacher(teacher_id)
         flash("Teacher deleted successfully.","success")
         return redirect(url_for("teachers.remove_teacher"))
-    flash("Operation Cancelled!","error")
+    flash("Operation Cancelled!","cancel")
     return redirect(url_for("teachers.remove_teacher"))
 
 
 ## Teacher part
 
 @teachers_bp.route("/" ,methods=["GET","POST"])
-def teacher_login():
+def teacher_login() -> Response:
     if request.method == "POST":
-        id = request.form.get("teacher-id")
+        teacher_id = request.form.get("teacher-id")
         password = request.form.get("teacher-password")
-        teacher = find_teacher_by_id(id)
-        if teacher.check_id(id) and teacher.check_password(password):
+        teacher = find_teacher_by_id(teacher_id)
+        if teacher and teacher.check_password(password):
             session["teacher_name"] = teacher.name
             return redirect(url_for("teachers.teacher_menu"))
         else:
-            return render_template(
-                "teacher/teacher.html",
-                message = "Incorrect username or password."
-                )
-    return render_template("teacher/teacher.html")
+            flash("Incorrect username or password.","error")
+            return redirect(url_for("teachers.teacher_login"))
+    return render_template("teachers/teacher.html")
 
 
 @teachers_bp.route("/teacher-menu")
-def teacher_menu():
-    return render_template("students/teacher-menu.html")
+@teacher_required
+def teacher_menu() -> Response:
+    return render_template("teachers/teacher-menu.html")
 
 
 @teachers_bp.route("/logout")
-def teacher_logout():
-    if session.get("teacher_name"):
+@teacher_required
+def teacher_logout() -> Response:
+    if "teacher_name" in session:
         session.pop("teacher_name")
-    return render_template(
-        "teachers/teacher.html",
-        message = "Logged out!"
-        )
-
+        flash("Logged out!","success")
+    return redirect(url_for("teachers.teacher_login"))

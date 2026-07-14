@@ -4,21 +4,20 @@ from models.student import Student
 
 from database import (
     load_students_from_database,
-	load_student_by_roll_num,
-	max_roll_num_grade,
+	load_student_by_roll_number,
+	max_roll_number_grade,
 )
 
 # Helper Functions
 
-def roll_num_generator(grade):
+def roll_number_generator(grade : str) -> str:
 	grade_prefix = {
 		"1st Year" : "1",
 		"2nd Year" : "2",
 		"3rd Year" : "3",
 		"4th Year" : "4"
 	}
-
-	last_roll = max_roll_num_grade(grade)
+	last_roll = max_roll_number_grade(grade)
 	if last_roll is None:
 		return f"{grade_prefix[grade]}01"
 	last_roll = int(last_roll)
@@ -26,24 +25,32 @@ def roll_num_generator(grade):
 	return new_roll
 
 
-def find_student_by_roll(roll_num):
-	student = load_student_by_roll_num(roll_num)
+def find_student_by_roll_number(roll_number : str) -> Student | None:
+	student = load_student_by_roll_number(roll_number)
 	if student:
-		roll_num,name,grade,branch = student
-		current_student = Student(name,roll_num,grade,branch)
-		return current_student
+		return Student(
+			name=student["name"],
+			roll_number=student["roll_number"],
+			grade=student["grade"],
+			branch=student["branch"]
+		)
 	return None
+
 
 # Core Business logic
 
 # Read
 
-def load_students():
+def load_students() -> list[Student]:
 	students = []
-	rows = load_students_from_database()
-	for row in rows:
-		roll_num, name, grade, branch = row
-		student = Student(name,roll_num,grade,branch)
+	student_rows = load_students_from_database()
+	for row in student_rows:
+		student = Student(
+			name=row["name"],
+			roll_number=row["roll_number"],
+			grade=row["grade"],
+			branch=row["branch"]
+			)
 		students.append(student)
 	return students
 

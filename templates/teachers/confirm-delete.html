@@ -14,7 +14,7 @@ Confirmation Page | Student Management System
     <br>
     <form method="POST" action="{{url_for(
     'teachers.confirm_delete',
-    id = teacher.id)}}">
+    teacher_id = teacher.id)}}">
         <button type="submit" class="submit-btn" name="action" value="submit">Delete Teacher</button>
         <button type="submit" class="cancel" name="action" value="cancel">Cancel</button>
     </form>
