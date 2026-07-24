@@ -2,13 +2,15 @@
 
 {% block content %}
 
-<div class="login">
-    <h2 id="main-menu">Main Menu :</h2>
-    <ol>
-        <li><a href="{{url_for('admin.admin_login')}}" class="main-menu menu">Login as Admin</a></li>
-        <li><a href="{{url_for('teachers.teacher_login')}}" class="main-menu menu">Login as Teacher</a></li>
-        <li><a href="{{url_for('exit')}}" class="main-menu menu">Exit</a></li>
-    </ol>
+<div class="center-page">
+    <div class="login center-content container">
+        <h2 id="main-menu">Main Menu :</h2>
+        <ul>
+            <li><a href="{{url_for('admin.admin_login')}}" class="main-menu menu">Login as Admin</a></li>
+            <li><a href="{{url_for('teachers.teacher_login')}}" class="main-menu menu">Login as Teacher</a></li>
+            <li><a href="{{url_for('exit')}}" class="main-menu menu">Exit</a></li>
+        </ul>
+    </div>
 </div>
 
 {% endblock %}

@@ -12,31 +12,34 @@
 
 {% block content %}
 
-<div class="view-teacher">
-    {% if teacher %}
-    <table>
-        <tr>
-            <th>Name</th>
-            <td>{{ teacher.name }}</td>
-        </tr>
-        <tr>
-            <th>ID</th>
-            <td>{{ teacher.id }}</td>
-        </tr>
-        <tr>
-            <th>Subject</th>
-            <td>{{ teacher.subject }}</td>
-        </tr>
-        <tr>
-            <th>Grades</th>
-            <td>{{ ", ".join(teacher.grades) }}</td>
-        </tr>
-    </table>
+<div class="center-page">
+    <div class="view-teacher center-content container">
+        {% if teacher %}
+        <table class="table-container">
+            <caption>Teacher Details</caption>
+            <tr>
+                <th>Name</th>
+                <td>{{ teacher.name }}</td>
+            </tr>
+            <tr>
+                <th>ID</th>
+                <td>{{ teacher.id }}</td>
+            </tr>
+            <tr>
+                <th>Subject</th>
+                <td>{{ teacher.subject }}</td>
+            </tr>
+            <tr>
+                <th>Grades</th>
+                <td>{{ ", ".join(teacher.grades) }}</td>
+            </tr>
+        </table>
 
-    {% else %}
-    <h3>Teacher not found!</h3>
+        {% else %}
+        <h3>Teacher not found!</h3>
 
-    {% endif %}
+        {% endif %}
+    </div>
 </div>
 
 {% endblock %}

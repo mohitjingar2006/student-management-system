@@ -1,8 +1,16 @@
 <nav class="teacher-admin-navbar navbar">
-    <a href="{{url_for('teachers.view_all_teachers')}}" class="nav-link">View All Teachers</a>
-    <a href="{{url_for('teachers.add_teacher')}}" class="nav-link">Add Teacher</a>
-    <a href="{{url_for('teachers.search_teacher')}}" class="nav-link">Search Teacher</a>
-    <a href="{{url_for('teachers.remove_teacher')}}" class="nav-link">Remove Teacher</a>
-    <a href="{{url_for('teachers.update_teacher_details')}}" class="nav-link">Update Teacher Details</a>
-    <a href="{{url_for('admin.admin_menu')}}" class="nav-link">Back to Admin Main Menu</a>
+    <a href="{{url_for('teachers.view_all_teachers')}}"
+        class="nav-link {% if request.endpoint == 'teachers.view_all_teachers' %}active{% endif %}">View All
+        Teachers</a>
+    <a href="{{url_for('teachers.add_teacher')}}"
+        class="nav-link {% if request.endpoint == 'teachers.add_teacher' %}active{% endif %}">Add Teacher</a>
+    <a href="{{url_for('teachers.search_teacher')}}"
+        class="nav-link {% if request.endpoint == 'teachers.search_teacher' %}active{% endif %}">Search Teacher</a>
+    <a href="{{url_for('teachers.remove_teacher')}}"
+        class="nav-link {% if request.endpoint == 'teachers.remove_teacher' %}active{% endif %}">Remove Teacher</a>
+    <a href="{{url_for('teachers.update_teacher_details')}}"
+        class="nav-link {% if request.endpoint in ['teachers.update_teacher_details','teachers.update_teacher_subject','teachers.update_teacher_grades'] %}active{% endif %}">Update
+        Teacher Details</a>
+    <a href="{{url_for('admin.admin_menu')}}"
+        class="nav-link {% if request.endpoint == 'admin.admin_menu' %}active{% endif %}">Back to Admin Main Menu</a>
 </nav>

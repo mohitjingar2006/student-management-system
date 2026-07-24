@@ -12,15 +12,21 @@ Add Teacher | Student Management System
 
 {% block content %}
 
-<div class="add-teacher">
-    <form method="POST">
+<div class="add-teacher container">
+    <form method="POST" class="form-container">
         <fieldset>
             <legend>Teacher Information</legend>
-            <label for="teacher-name">Name</label>
-            <input type="text" id="teacher-name" name="teacher-name" required>
-            {% include "teachers/subjects.html" %}
-            {% include "teachers/grades.html" %}
-            <button type="submit" class="submit-btn">Add teacher</button>
+            <div class="form-group">
+                <label for="teacher-name">Name</label>
+                <input type="text" id="teacher-name" name="teacher-name" required>
+            </div>
+            <div class="form-group">
+                {% include "teachers/subjects.html" %}
+            </div>
+            <div class="form-group">
+                {% include "teachers/grades.html" %}
+            </div>
+            <button type="submit" class="success-btn">Add teacher</button>
         </fieldset>
     </form>
 </div>

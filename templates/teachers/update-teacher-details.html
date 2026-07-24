@@ -12,13 +12,17 @@ Update Teacher | Student Management System
 
 {% block content %}
 
-<div class="update-menu">
-    <h3>Update Menu</h3>
-    <ol>
-        <li><a href="{{url_for('teachers.update_teacher_subject')}}" class="update-link menu">Update Subject</a></li>
-        <li><a href="{{url_for('teachers.update_teacher_grades')}}" class="update-link menu">Update Grades</a></li>
-        <li><a href="{{url_for('teachers.teachers_admin_menu')}}" class="update-link menu">Back to Teacher Menu</a></li>
-    </ol>
+<div class="center-page">
+    <div class="update-menu center-content container">
+        <h2>Update Menu</h2>
+        <ul>
+            <li><a href="{{url_for('teachers.update_teacher_subject')}}" class="update-link menu">Update Subject</a>
+            </li>
+            <li><a href="{{url_for('teachers.update_teacher_grades')}}" class="update-link menu">Update Grades</a></li>
+            <li><a href="{{url_for('teachers.teachers_admin_menu')}}" class="update-link menu">Back to Teacher Menu</a>
+            </li>
+        </ul>
+    </div>
 </div>
 
 {% endblock %}

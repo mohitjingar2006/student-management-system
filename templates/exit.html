@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block body_class %}
+exit-body
+{% endblock %}
+
+{% block content %}
+
+<div class="exit-container">
+
+    <div class="exit-content">
+        <p id="redirect-msg">Redirecting to Home Page.</p>
+    </div>
+
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const redirectMsg = document.querySelector("#redirect-msg");
+        let dots = 1;
+
+        setInterval(function () {
+            dots = (dots % 3) + 1;
+            redirectMsg.textContent = "Redirecting to Home Page" + ".".repeat(dots);
+        }, 500);
+
+        setTimeout(function () {
+            window.location.href = "{{ url_for('home') }}";
+        }, 3000);
+    });
+</script>
+
+{% endblock %}

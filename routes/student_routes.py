@@ -49,7 +49,7 @@ def view_student(roll_number : str) -> Response:
             "students/view-student.html",
             student = student
         )
-    flash("Student not found","error")
+    flash("Student not found!","error")
     return redirect(url_for("students.student_admin_menu"))
 
 
@@ -80,7 +80,7 @@ def view_all_students() -> Response:
 @admin_required
 def add_student() -> Response:
     if request.method == "POST":
-        name = request.form.get("student-name")
+        name = request.form.get("student-name").title()
         grade = request.form.get("grade")
         branch = request.form.get("student-branch")
         roll_number = roll_number_generator(grade)
@@ -128,7 +128,7 @@ def update_student_branch() -> Response:
         student = find_student_by_roll_number(roll_number)
         if student:
             update_student_branch_db(branch,roll_number)
-            flash("Student Branch changed successfully.","success")
+            flash("Student Branch changed successfully...","success")
             return redirect(
                 url_for(
                   "students.view_student",
@@ -150,7 +150,7 @@ def update_student_grade() -> Response:
         student = find_student_by_roll_number(roll_number)
         if student:
             update_student_grade_db(grade,roll_number)
-            flash("Student Grade changed successfully.","success")
+            flash("Student Grade changed successfully...","success")
             return redirect(
                 url_for("students.view_student",
                 roll_number = roll_number
@@ -191,7 +191,7 @@ def confirm_delete(roll_number : str) -> Response:
         button_clicked = request.form.get("action")
         if button_clicked == "submit":    
             delete_student(roll_number)
-            flash("Student deleted successfully.","success")
+            flash("Student deleted successfully...","success")
             return redirect(url_for("students.remove_student"))
         else:
             flash("Operation Cancelled!","cancel")

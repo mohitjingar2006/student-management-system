@@ -11,16 +11,18 @@ Welcome {{session.get("admin_name")}} to Student Menu | Student Management Syste
 {% endblock %}
 {% block content %}
 
-<div class="student-admin-menu">
-    <h3>Student Menu</h3>
-    <ol>
-        <li><a href="{{url_for('students.view_all_students')}}" class="student-menu menu">View All Students</a></li>
-        <li><a href="{{url_for('students.add_student')}}" class="student-menu menu">Add Student</a></li>
-        <li><a href="{{url_for('students.search_student')}}" class="student-menu menu">Search Student</a></li>
-        <li><a href="{{url_for('students.remove_student')}}" class="student-menu menu">Remove Student</a></li>
-        <li><a href="{{url_for('students.update_student_details')}}" class="student-menu menu">Update Student Details</a></li>
-        <li><a href="{{url_for('admin.admin_menu')}}" class="student-menu menu">Back to Admin Main Menu</a></li>
-    </ol>
+<div class="center-page">
+    <div class="admin-menu center-content container">
+        <h2>Student Menu</h2>
+        <ul>
+            <li><a href="{{url_for('students.view_all_students')}}" class="student-menu menu">View All Students</a></li>
+            <li><a href="{{url_for('students.add_student')}}" class="student-menu menu">Add Student</a></li>
+            <li><a href="{{url_for('students.search_student')}}" class="student-menu menu">Search Student</a></li>
+            <li><a href="{{url_for('students.remove_student')}}" class="student-menu menu">Remove Student</a></li>
+            <li><a href="{{url_for('students.update_student_details')}}" class="student-menu menu">Update Student Details</a></li>
+            <li><a href="{{url_for('admin.admin_menu')}}" class="student-menu menu">Back to Admin Main Menu</a></li>
+        </ul>
+    </div>
 </div>
 
 {% endblock %}

@@ -32,7 +32,7 @@ def admin_login() -> Response:
             session["admin_name"] = name
             return redirect(url_for("admin.admin_menu"))
         else:
-            flash("Incorrect username or password.","error")
+            flash("Incorrect username or password!","error")
             return redirect(url_for("admin.admin_login"))
     return render_template("admin/admin.html")
 

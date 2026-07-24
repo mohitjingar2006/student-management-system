@@ -12,13 +12,22 @@ Update Grades | Student Management System
 
 {% block content %}
 
-<div class="update-grades">
-    <form method="POST">
-        <label for="id">Enter Teacher ID</label>
-        <input type="text" id="id" name="id" required>
-        {% include "teachers/grades.html" %}
-        <button type="submit" class="submit-btn">Submit</button>
-    </form>
+<div class="center-page">
+    <div class="update-grades container">
+        <form method="POST" class="form-container">
+            <fieldset>
+                <legend>Update Information</legend>
+                <div class="form-group">
+                    <label for="id">Enter Teacher ID</label>
+                    <input type="text" id="id" name="id" required>
+                </div>
+                <div class="form-group">
+                    {% include "teachers/grades.html" %}
+                </div>
+                <button type="submit" class="success-btn">Submit</button>
+            </fieldset>
+        </form>
+    </div>
 </div>
 
 {% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block body_class %}
+error-body
+{% endblock %}
+
+{% block title %}
+error-pages
+{% endblock %}
+
+{% block content %}
+
+<div class="error-container">
+    <h1>403</h1>
+    <div class="error-content">
+        <p>Access Denied</p>
+        <p>You don't have permission to access this page.</p>
+        {% if session.get("admin_name") %}
+        <a href="{{ url_for('admin.admin_menu') }}" class="menu">Back to Admin Menu</a>
+
+        {% elif session.get("teacher_name") %}
+        <a href="{{ url_for('teachers.teacher_menu') }}" class="menu">Back to Teacher Menu</a>
+
+        {% else %}
+        <a href="{{ url_for('home') }}" class="menu">Return Home</a>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

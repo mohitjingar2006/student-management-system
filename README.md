@@ -1,12 +1,55 @@
 ![Python](https://img.shields.io/badge/Python-3.12-blue)
+
+![Flask](https://img.shields.io/badge/Flask-3.x-black)
+
 ![SQLite](https://img.shields.io/badge/Database-SQLite-green)
-![Status](https://img.shields.io/badge/Status-Active-success)
+
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
+
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
+
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6-F7DF1E?logo=javascript&logoColor=black)
+
+![Jinja2](https://img.shields.io/badge/Jinja2-Template-B41717)
+
+![Status](https://img.shields.io/badge/Status-Completed-success)
+
+---
 
 # Student Management System
 
-A console-based Student Management System built using Python and SQLite.
 
-This project was developed to learn software development fundamentals, Object-Oriented Programming, database management, software architecture, and backend development concepts.
+A **Flask-based Student Management System** developed as a learning project to gain practical experience in backend development, database management, software architecture, and full-stack web development.
+
+The application provides secure authentication, student and teacher management, persistent database storage, and a clean web interface built using Flask, SQLite, HTML, CSS, JavaScript, and Jinja2.
+
+---
+
+## Screenshots
+
+### Home Page
+
+![Home Page](screenshots/home-page.png)
+
+### Admin Login
+
+![Admin Login](screenshots/admin-login.png)
+
+### Admin Menu
+
+![Admin Menu](screenshots/admin-menu.png)
+
+### Add Student
+
+![Add Student](screenshots/add-student.png)
+
+### Student Records
+
+![Student Records](screenshots/view-all-students.png)
+
+### Confirm-deletion Page
+
+![Confirm Deletion](screenshots/confirm-deletion.png)
 
 ---
 
@@ -14,19 +57,17 @@ This project was developed to learn software development fundamentals, Object-Or
 
 ## Authentication
 
-### Admin Login
+### Admin Authentication
 
-* Secure admin authentication
-* Password masking in terminal
+* Secure admin login
+* Session-based authentication
+* Protected admin routes
 
-### Teacher Login
+### Teacher Authentication
 
-* Teacher authentication using ID and password
-* Password masking support
-
-### Cross-Platform Support
-
-* Works on Windows, Linux, and macOS terminals
+* Teacher login using ID and password
+* Session management
+* Protected teacher dashboard
 
 ---
 
@@ -34,11 +75,10 @@ This project was developed to learn software development fundamentals, Object-Or
 
 * Add Student
 * View All Students
-* Search Student by Roll Number
+* Search Student
 * Update Student Details
-
-  * Change Grade
-  * Change Branch
+* Change Student Grade
+* Change Student Branch
 * Remove Student
 * Automatic Roll Number Generation
 
@@ -48,14 +88,34 @@ This project was developed to learn software development fundamentals, Object-Or
 
 * Add Teacher
 * View All Teachers
-* Search Teacher by ID
+* Search Teacher
 * Update Teacher Details
-
-  * Change Subject
-  * Change Grades
+* Change Subject
+* Change Assigned Grades
 * Remove Teacher
 * Automatic Teacher ID Generation
 * Automatic Password Generation
+
+---
+
+# User Interface
+
+* Responsive Home Page
+* Navigation Bar
+* Flash Messages
+* Styled Forms
+* Styled Tables
+* Reusable Components
+* Logout Redirect Page
+* Active Navigation Links
+
+---
+
+# Error Handling
+
+* Custom 403 Forbidden Page
+* Custom 404 Page Not Found
+* Custom 500 Internal Server Error Page
 
 ---
 
@@ -64,38 +124,20 @@ This project was developed to learn software development fundamentals, Object-Or
 * SQLite Database Integration
 * Persistent Data Storage
 * Automatic Database Initialization
-* Automatic Admin Account Setup
-* Parameterized SQL Queries for Improved Security
-
----
-
-# Software Architecture
-
-The project follows a layered architecture inspired by real-world applications.
-
-### UI Layer
-
-Handles all user interaction and menu navigation.
-
-### Service Layer
-
-Contains business logic and application rules.
-
-### Model Layer
-
-Defines core entities such as Student, Teacher, and Admin.
-
-### Database Layer
-
-Responsible for database access and persistence.
+* Automatic Admin Account Creation
+* Parameterized SQL Queries
 
 ---
 
 # Technologies Used
 
 * Python 3
+* Flask
 * SQLite3
-* JSON Module
+* HTML5
+* CSS3
+* JavaScript
+* Jinja2
 * Object-Oriented Programming (OOP)
 
 ---
@@ -105,27 +147,33 @@ Responsible for database access and persistence.
 ```text
 student-management-system/
 │
-├── main.py
+├── app.py
+├── config.py
 ├── database.py
 ├── constants.py
-├── utils.py
-├── mask_input.py
+│
+├── blueprints/
+│   ├── admin/
+│   ├── students/
+│   ├── teachers/
+│   └── authentication/
 │
 ├── models/
-│   ├── admin_model.py
-│   ├── student.py
-│   └── teacher_model.py
 │
 ├── services/
-│   ├── student_service.py
-│   └── teacher_service.py
 │
-├── ui/
-│   ├── admin.py
-│   └── teacher.py
+├── templates/
+│   ├── components/
+│   ├── errors/
+│   └── ...
+│
+├── static/
+│   ├── style.css
+│   ├── script.js
+│   └── images/
 │
 ├── student_management.db
-│
+│__ requirements.txt
 └── README.md
 ```
 
@@ -133,22 +181,23 @@ student-management-system/
 
 # Concepts Practiced
 
-* Classes and Objects
-* Encapsulation
-* Dunder Methods (`__str__`)
-* Modular Programming
+* Flask Blueprints
+* Jinja Template Inheritance
+* Object-Oriented Programming
 * Layered Architecture
 * Separation of Concerns
-* SQLite Database Operations
 * CRUD Operations
-* Authentication Systems
-* Input Validation
-* JSON Serialization
-* Cross-Platform Terminal Handling
+* SQLite Database Operations
+* Session-Based Authentication
+* HTML Forms
+* CSS Flexbox
+* JavaScript DOM Manipulation
+* Flash Messages
+* Error Handling
 
 ---
 
-# How to Run
+# Installation
 
 ## Clone the Repository
 
@@ -156,16 +205,56 @@ student-management-system/
 git clone <repository-url>
 ```
 
-## Navigate to Project Directory
+## Navigate to the Project
 
 ```bash
 cd student-management-system
 ```
 
-## Run the Application
+## Create a Virtual Environment
+
+### Linux/macOS
+
+```
+python3 -m venv venv
+```
 
 ```bash
-python3 main.py
+source venv/bin/activate
+```
+
+### Windows
+
+python -m venv venv
+
+```bash
+venv\Scripts\activate
+```
+
+## Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+# Usage
+
+Run the application:
+
+### Windows
+
+ python app.py
+
+### &#x20;Linux/macOS 
+
+python3 app.py
+
+Open your browser and visit:
+
+```text
+http://127.0.0.1:5000
 ```
 
 ---
@@ -181,40 +270,34 @@ Password: admin123
 
 # Future Improvements
 
-## Planned Features
-
-* Flask Web Application
-* HTML/CSS Frontend
-* Password Hashing
-* Role-Based Authorization
-* Advanced Search and Filtering
-* Student Promotion System
+* Password Reset
+* Advanced Search & Filtering
+* Pagination
+* User Profile Management
 * Logging System
 * Unit Testing
-* REST API Development
-* Repository/Data Access Layer
-* Deployment on Cloud Platforms
 
 ---
 
 # Learning Objectives
 
-This project is being developed as a practical learning exercise for:
+This project was developed to gain practical experience with:
 
-* Python Programming
-* Object-Oriented Design
-* Database Design
-* SQL and SQLite
-* Backend Development
+* Flask Backend Development
+* Full-Stack Web Development
+* Database Management
+* SQLite
 * Software Architecture
-* Software Engineering Principles
-* Web Development with Flask
+* Object-Oriented Programming
+* HTML, CSS and JavaScript
+* Jinja2 Template Engine
+* Authentication Systems
 
 ---
 
 # Author
 
-Mohit Jingar
+**Mohit Jingar**
 
 B.Tech Electrical Engineering
 
@@ -224,29 +307,44 @@ Indian Institute of Technology Jodhpur
 
 # Project Status
 
-Actively under development and continuously being improved as part of the learning journey.
+Completed as a learning project and actively maintained for future improvements.
 
 ---
 
 # Version History
 
-## v1.0 - CSV Storage
-- Student Management System using CSV files
-- Admin and Teacher authentication
-- Student CRUD operations
-- Teacher CRUD operations
-- Password masking
+## v1.0
 
-## v2.0 - SQLite Migration (Current)
-- Migrated from CSV to SQLite
-- Improved project architecture
-- Introduced Models, Services, and UI layers
-- Added JSON serialization for teacher grades
-- Improved code organization and maintainability
+* Console-based Student Management System
+* CSV File Storage
+* Student CRUD
+* Teacher CRUD
+* Authentication
 
-## v3.0 - Planned
-- Flask Web Application
-- HTML/CSS Frontend
-- Password Hashing
-- REST API Development
-- Deployment
+## v2.0
+
+* Migrated to SQLite
+* Improved Software Architecture
+* Models and Services
+* Persistent Database
+
+## v3.0 (Current)
+
+* Migrated to Flask Web Application
+* Complete web-based interface
+* SQLite integration
+* HTML, CSS and JavaScript Frontend
+* Flask Blueprints
+* Jinja Template Inheritance
+* Student & Teacher CRUD
+* Session-Based Authentication
+* Flash Messages
+* Responsive Home Page
+* Custom Error Pages
+* Improved User Interface
+* Reusable Jinja templates
+* Modular Project Structure
+
+## License
+
+This project is developed for educational purposes.

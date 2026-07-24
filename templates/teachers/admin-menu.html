@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-Welcome {{session.get("admin-name")}} to Student Management System | xyz college
+Welcome {{session.get("admin_name")}} to Student Management System | xyz college
 {% endblock %}
 
 {% block header %}
@@ -12,16 +12,18 @@ Welcome {{session.get("admin-name")}} to Student Management System | xyz college
 
 {% block content %}
 
-<div class="teacher-admin-menu">
-    <h3>Teacher Menu</h3>
-    <ol>
-        <li><a href="{{url_for('teachers.view_all_teachers')}}" class="teacher-menu menu">View All Teachers</a></li>
-        <li><a href="{{url_for('teachers.add_teacher')}}" class="teacher-menu menu">Add Teacher</a></li>
-        <li><a href="{{url_for('teachers.search_teacher')}}" class="teacher-menu menu">Search Teacher</a></li>
-        <li><a href="{{url_for('teachers.remove_teacher')}}" class="teacher-menu menu">Remove Teacher</a></li>
-        <li><a href="{{url_for('teachers.update_teacher_details')}}" class="teacher-menu menu">Update Teacher Details</a></li>
-        <li><a href="{{url_for('admin.admin_menu')}}" class="teacher-menu menu">Back to Admin Main Menu</a></li>
-    </ol>
+<div class="center-page">
+    <div class="admin-menu center-content container">
+        <h2>Teacher Menu</h2>
+        <ul>
+            <li><a href="{{url_for('teachers.view_all_teachers')}}" class="teacher-menu menu">View All Teachers</a></li>
+            <li><a href="{{url_for('teachers.add_teacher')}}" class="teacher-menu menu">Add Teacher</a></li>
+            <li><a href="{{url_for('teachers.search_teacher')}}" class="teacher-menu menu">Search Teacher</a></li>
+            <li><a href="{{url_for('teachers.remove_teacher')}}" class="teacher-menu menu">Remove Teacher</a></li>
+            <li><a href="{{url_for('teachers.update_teacher_details')}}" class="teacher-menu menu">Update Teacher Details</a></li>
+            <li><a href="{{url_for('admin.admin_menu')}}" class="teacher-menu menu">Back to Admin Main Menu</a></li>
+        </ul>
+    </div>
 </div>
 
 {% endblock %}

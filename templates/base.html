@@ -12,11 +12,13 @@
     </title>
 
     <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
-    {% block css %}
+    <link rel="icon" type="image/png" href="../static/images/favicon.png">
+    <script src="{{url_for('static',filename='script.js')}}" defer></script>
+    {% block head %}
     {% endblock %}
 </head>
 
-<body>
+<body class="{% block body_class %}{% endblock %}">
     <header>
         {% block header %}
         {% endblock %}
@@ -26,7 +28,7 @@
         {% block content %}
         {% endblock %}
     </main>
-    <footer>
+    <footer class="{% block footer_class %}{% endblock %}">
         {% block footer %}
         {% endblock %}
         Copyright @ xyz college, India

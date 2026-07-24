@@ -6,22 +6,20 @@ Admin-authentication | Student Management System
 
 {% block content %}
 
-<div class="admin_authentication">
-    {% if message %}
-    <div class="msg">
-        {{ message }}
+<div class="center-page">
+    <div class="authentication center-content container">
+        <form method="POST" class="form-container">
+            <div class="form-group">
+                <label for="admin-name">Enter your name :</label><br>
+                <input type="text" id="admin-name" name="admin-name" required><br>
+            </div>
+            <div class="form-group">
+                <label for="admin-password">Enter your password :</label><br>
+                <input type="password" id="admin-password" name="admin-password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
     </div>
-    {% endif %}
-
-    <form method="POST">
-        <label for="admin-name">Enter your name :</label><br>
-        <input type="text" id="admin-name" name="admin-name" required><br>
-
-        <label for="admin-password">Enter your password :</label><br>
-        <input type="password" id="admin-password" name="admin-password" required>
-
-        <button type="submit" class="submit-btn">Login</button>
-    </form>
 </div>
 
 {% endblock %}

@@ -1,17 +1,502 @@
-#title{
+/* CSS variables */
+
+:root {
+    --bg-color: #F5F7FA;
+    --surface: #FFFFFF;
+    --primary: #1E3A8A;
+    --primary-hover: #3753A3;
+    --text-color: #1F2937;
+    --border-color: #D1D5DB;
+    --usual: #0095F6;
+    --success: #198754;
+    --danger: #DC3545;
+}
+
+/* Reset */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100dvh;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+
+    display: flex;
+    flex-direction: column;
+
+    font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        'Segoe UI',
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+
+    font-size: 1.05rem;
+    line-height: 1.5;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+h1,
+h2,
+h3 {
     text-align: center;
 }
 
-a{
-    text-decoration: none;
-    color: black;
+h1 {
+    font-size: 2rem;
 }
 
-a:hover{
-    color: blue;
+h2 {
+    font-size: 1.5rem;
 }
 
-button{
-    background-color: #0095F6;
-    color: white;
+h3 {
+    font-size: 1.25rem;
+}
+
+/* Button */
+
+button {
+    border: none;
+    cursor: pointer;
+    font: inherit;
+    font-weight: bold;
+    box-shadow: 0 2px 6px rgba(124, 122, 122, 0.85);
+    border-radius: .3rem;
+
+    background-color: var(--usual);
+    color: var(--surface);
+
+    padding: 0.1rem .5rem;
+    margin-right: 2px;
+    transition: 0.2s;
+}
+
+/* Success */
+.success-btn {
+    background: var(--success);
+}
+
+/* Delete */
+.delete {
+    background: var(--danger);
+}
+
+/* Cancel */
+.cancel-btn {
+    background: #6C757D;
+}
+
+button:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, .2);
+    transform: translateY(2px);
+    filter: brightness(1.2);
+}
+
+button:active {
+    transform: translateY(2px);
+}
+
+input,
+select,
+button {
+    font: inherit;
+}
+
+input,
+select {
+    padding: 0.4rem .8rem;
+    border-color: var(--border-color);
+    margin: 0 .4rem;
+    line-height: 1rem;
+}
+
+input:hover,
+select:hover {
+    filter: brightness(0.95);
+}
+
+/* Global layout */
+
+header {
+    height: auto;
+    background-color: var(--primary);
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    padding: 2.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    padding: 1rem;
+    text-align: right;
+    font-size: 1rem;
+    color: #6B7280;
+}
+
+/* Layout */
+
+/* Navbar */
+
+.navbar {
+    display: flex;
+    color: #FFFFFF;
+    min-height: 3.75rem;
+    padding: 0rem 1.4rem;
+    justify-content: center;
+    gap: 3.5rem;
+    align-items: center;
+}
+
+.navbar a:hover {
+    color: #FAF9F6;
+    text-decoration: underline;
+    background-color: var(--primary-hover);
+}
+
+.active {
+    color: #FAF9F6;
+    text-decoration: underline;
+    background-color: var(--primary-hover);
+}
+
+/* Container */
+
+.container {
+    margin: 0 auto;
+    width: 80%;
+    max-width: 50rem;
+    min-height: 20rem;
+    padding: 1.4rem 1rem;
+    background-color: white;
+    box-shadow: 0px 4px 12px rgba(124, 122, 122, 0.75);
+}
+
+/* Utility Classes */
+
+.center-page {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.center-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Flash-messages + Login session-messages */
+
+.flash-container,
+.login-session {
+    width: 80%;
+    max-width: 50rem;
+    margin: 0 auto 1rem;
+}
+
+.flash {
+    transition: opacity 0.3s ease;
+}
+
+.flash,
+.login-session {
+    padding: .75rem 1rem;
+    border-radius: .35rem;
+    margin-bottom: .75rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.info {
+    color: var(--usual);
+}
+
+.success,
+.login-session {
+    color: var(--success);
+}
+
+.error {
+    color: var(--danger);
+}
+
+/* Form */
+
+select {
+    text-align: center;
+}
+
+label {
+    font-weight: bold;
+}
+
+fieldset {
+    padding: 1.2rem;
+    margin-bottom: 8px;
+}
+
+legend {
+    font-weight: bolder;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+.radio-group {
+    margin-right: .7rem;
+}
+
+.grade {
+    display: flex;
+}
+
+.form-group {
+    margin-bottom: 8px;
+}
+
+.form-container {
+    padding: 2rem 1.5rem;
+    line-height: 1.6;
+}
+
+/* Table */
+table {
+    border-collapse: collapse;
+    margin: 1.2rem auto;
+}
+
+th {
+    color: var(--surface);
+    background-color: var(--primary);
+}
+
+th,
+td {
+    padding: 0.4rem 0.8rem;
+    border: 2px solid rgb(49, 43, 43);
+    text-align: left;
+}
+
+tbody tr:hover {
+    background-color: #f3f4f6;
+}
+
+caption {
+    padding: 8px;
+    border-style: solid;
+    border-width: 2px 2px 0px 2px;
+    border-color: rgb(49, 43, 43);
+    background-color: var(--primary-hover);
+    color: var(--surface);
+    font-size: larger;
+    font-weight: bold;
+}
+
+#roll-number {
+    text-align: center;
+}
+
+/* Menu link */
+
+.menu {
+    font-weight: bold;
+}
+
+.menu:hover {
+    color: #0056B3;
+    text-decoration: underline;
+}
+
+/* Login Page */
+
+/* Main Menu */
+
+#main-menu {
+    color: var(--text-color);
+    margin-bottom: .9rem;
+}
+
+/* authentication */
+
+.authentication input {
+    margin: 0;
+}
+
+.authentication button {
+    display: block;
+    margin: 0.4rem auto;
+}
+
+/* Admin Menu */
+
+.admin-menu h2 {
+    margin-bottom: 6px;
+}
+
+/* Update Menu */
+
+.update-menu,
+.student-teacher-menu h2 {
+    margin-bottom: 6px;
+}
+
+/* Search Student */
+
+.search-student,
+.remove-student,
+.search-teacher,
+.remove-teacher {
+    min-height: auto;
+}
+
+/* Home Page */
+
+.home-page {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.home-header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+    color: aliceblue;
+}
+
+.college-brand,
+.app-title {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.home-header h1 {
+    margin: 0;
+    line-height: 1.1;
+}
+
+.divider {
+    width: 2px;
+    height: 4.5rem;
+    background-color: aliceblue;
+}
+
+.home-card {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 2rem;
+    gap: 2rem;
+}
+
+.home-card:hover{
+    filter: brightness(0.9);
+}
+
+.college-logo {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    aspect-ratio: 1/1;
+    background: url(images/college-logo.png) center center / contain no-repeat;
+}
+
+.login-section {
+    flex: 4;
+    display: flex;
+    justify-content: center;
+
+    font-size: 1.5rem;
+}
+
+.home-body {
+    background: linear-gradient(135deg,
+            #041b47,
+            #1a6dc0);
+}
+
+.home-footer {
+    color: aliceblue;
+}
+
+/* Error Pages */
+
+.error-body {
+    font-size: 1.5rem;
+}
+
+.error-body a {
+    color: var(--primary);
+    text-decoration: underline;
+    font-size: 1rem;
+}
+
+.error-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.error-container h1 {
+    margin: 2rem;
+}
+
+.error-body a:hover {
+    color: var(--primary-hover);
+}
+
+/* Exit Page */
+
+.exit-body {
+    background: linear-gradient(135deg,
+            #041b47,
+            #1a6dc0);
+    font-size: 1.5rem;
+}
+
+.exit-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.exit-content {
+    color: #22C55E;
+    text-shadow:
+        0 0 8px rgba(74, 222, 128, 0.7),
+        0 0 16px rgba(74, 222, 128, 0.4);
 }

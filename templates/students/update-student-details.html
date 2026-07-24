@@ -10,15 +10,16 @@ Update Student | Student Management System
 
 {% block content %}
 
-<div class="update-menu">
-    <h3>Update Menu</h3>
-    <ol>
-        <li><a href="{{url_for('students.update_student_branch')}}" class="update-link menu">Update Branch</a></li>
-        <li><a href="{{url_for('students.update_student_grade')}}" class="update-link menu">Update Grade</a></li>
-        <li><a href="{{url_for('students.student_admin_menu')}}" class="update-link menu">Back to Student Menu</a></li>
-    </ol>
+<div class="center-page">
+    <div class="update-menu center-content container">
+        <h2>Update Menu</h2>
+        <ul>
+            <li><a href="{{url_for('students.update_student_branch')}}" class="update-link menu">Update Branch</a></li>
+            <li><a href="{{url_for('students.update_student_grade')}}" class="update-link menu">Update Grade</a></li>
+            <li><a href="{{url_for('students.student_admin_menu')}}" class="update-link menu">Back to Student Menu</a>
+            </li>
+        </ul>
+    </div>
 </div>
-
-
 
 {% endblock %}

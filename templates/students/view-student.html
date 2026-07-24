@@ -16,25 +16,28 @@
 
 {% block content %}
 
-<div class="view-student">
-    <table>
-        <tr>
-            <th>Name</th>
-            <td>{{ student.name }}</td>
-        </tr>
-        <tr>
-            <th>Roll Number</th>
-            <td>{{ student.roll_number }}</td>
-        </tr>
-        <tr>
-            <th>Grade</th>
-            <td>{{ student.grade }}</td>
-        </tr>
-        <tr>
-            <th>Branch</th>
-            <td>{{ student.branch }}</td>
-        </tr>
-    </table>
+<div class="center-page">
+    <div class="view-student center-content container">
+        <table class="table-container">
+            <caption>Student Details</caption>
+            <tr>
+                <th>Name</th>
+                <td>{{ student.name }}</td>
+            </tr>
+            <tr>
+                <th>Roll Number</th>
+                <td>{{ student.roll_number }}</td>
+            </tr>
+            <tr>
+                <th>Grade</th>
+                <td>{{ student.grade }}</td>
+            </tr>
+            <tr>
+                <th>Branch</th>
+                <td>{{ student.branch }}</td>
+            </tr>
+        </table>
+    </div>
 </div>
 
 {% endblock %}

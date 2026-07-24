@@ -12,12 +12,14 @@ Teacher | Student Management System
 
 {% block content %}
 
-<div class="remove-teacher">
-    <form method="POST">
-        <label for="id">Enter Teacher ID:</label>
-        <input type="text" id="id" name="id" required>
-        <button type="submit" id="submit-btn">Enter</button>
-    </form>
+<div class="center-page">
+    <div class="remove-teacher center-content container">
+        <form method="POST" class="form-container">
+            <label for="id">Enter Teacher ID:</label>
+            <input type="text" id="id" name="id" required>
+            <button type="submit" class="delete">Enter</button>
+        </form>
+    </div>
 </div>
 
 {% endblock %}

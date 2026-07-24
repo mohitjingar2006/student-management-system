@@ -16,11 +16,11 @@ View Students | Student Management System
 
 {% block content %}
 
-<div class="view-students">
+<div class="view-students container">
 
     <h2 id="title">Student Management System</h2>
 
-    <table>
+    <table class="table-container">
         <caption>Student Details</caption>
         <tr>
             <th>S.no</th>
@@ -33,7 +33,7 @@ View Students | Student Management System
         <tr>
             <td>{{loop.index}}</td>
             <td>{{student.name}}</td>
-            <td>{{student.roll_number}}</td>
+            <td id="roll-number">{{student.roll_number}}</td>
             <td>{{student.grade}}</td>
             <td>{{student.branch}}</td>
         </tr>

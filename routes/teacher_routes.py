@@ -48,7 +48,7 @@ def view_teacher(teacher_id : str) -> Response:
             "teachers/view-teacher.html",
             teacher = teacher
         )
-    flash("Teacher not found","error")
+    flash("Teacher not found!","error")
     return redirect(url_for("teachers.teacher_admin_menu"))
 
 
@@ -80,7 +80,7 @@ def view_all_teachers():
 @admin_required
 def add_teacher() -> Response:
     if request.method == "POST":
-        name = request.form.get("teacher-name")
+        name = request.form.get("teacher-name").title()
         subject = request.form.get("teacher-subject")
         password = password_generator()
         grades = request.form.getlist("grades")
@@ -132,7 +132,7 @@ def update_teacher_subject() -> Response:
         teacher = find_teacher_by_id(teacher_id)
         if teacher:
             update_teacher_subject_db(subject,teacher_id)
-            flash("Teacher subject changed successfully.","success")
+            flash("Teacher subject changed successfully...","success")
             return redirect(
                 url_for(
                     "teachers.view_teacher",
@@ -155,7 +155,7 @@ def update_teacher_grades() -> Response:
         teacher = find_teacher_by_id(teacher_id)
         if teacher:
             update_teacher_grades_db(grades,teacher_id)
-            flash("Teachers grades changed successfully.","success")
+            flash("Teachers grades changed successfully...","success")
             return redirect(
                 url_for(
                     "teachers.view_teacher",
@@ -197,7 +197,7 @@ def confirm_delete(teacher_id : str) -> Response:
         button_clicked = request.form.get("action")
         if button_clicked == "submit":
             delete_teacher(teacher_id)
-            flash("Teacher deleted successfully.","success")
+            flash("Teacher deleted successfully...","success")
             return redirect(url_for("teachers.remove_teacher"))
         flash("Operation Cancelled!","cancel")
         return redirect(url_for("teachers.remove_teacher"))
@@ -219,7 +219,7 @@ def teacher_login() -> Response:
             session["teacher_name"] = teacher.name
             return redirect(url_for(".teacher_menu"))
         else:
-            flash("Incorrect username or password.","error")
+            flash("Incorrect username or password!","error")
             return redirect(url_for("teachers.teacher_login"))
     return render_template("teachers/teacher.html")
 

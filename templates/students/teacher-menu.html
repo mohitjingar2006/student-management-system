@@ -11,13 +11,15 @@ Welcome {{session.get("teacher_name")}} to Student Menu | Student Management Sys
 {% endblock %}
 {% block content %}
 
-<div class="student-teacher-menu">
-    <h3>Student Menu</h3>
-    <ol>
-        <li><a href="{{url_for('students.view_all_students')}}" class="student-menu menu">View All Students</a></li>
-        <li><a href="{{url_for('students.search_student')}}" class="student-menu menu">Search Student</a></li>
-        <li><a href="{{url_for('teachers.teacher_logout')}}" class="student-menu menu">Logout</a></li>
-    </ol>
+<div class="center-page">
+    <div class="student-teacher-menu center-content container">
+        <h2>Student Menu</h2>
+        <ul>
+            <li><a href="{{url_for('students.view_all_students')}}" class="student-menu menu">View All Students</a></li>
+            <li><a href="{{url_for('students.search_student')}}" class="student-menu menu">Search Student</a></li>
+            <li><a href="{{url_for('teachers.teacher_logout')}}" class="student-menu menu">Logout</a></li>
+        </ul>
+    </div>
 </div>
 
 {% endblock %}

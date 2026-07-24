@@ -6,19 +6,24 @@ Confirmation Page | Student Management System
 
 {% block content %}
 
-<div>
-    <h2>Confirm Deletion</h2>
+<div class="center-page">
+    <div class="confirm-delete center-content container">
 
-    <p><strong>Name:</strong> {{student.name}}</p>
-    <p><strong>Roll Number:</strong> {{student.roll_number}}</p>
-    <br>
-    <form method="POST" action="{{url_for(
+        <fieldset>
+            <legend>Confirm Deletion</legend>
+
+            <p><strong>Name:</strong> {{student.name}}</p>
+            <p><strong>Roll Number:</strong> {{student.roll_number}}</p>
+            <br>
+            <form method="POST" action="{{url_for(
     'students.confirm_delete',
-    roll_number = student.roll_number)}}">
-        <button type="submit" class="submit-btn" name="action" value="submit">Delete Student</button>
-        <button type="submit" class="cancel" name="action" value="cancel">Cancel</button>
-    </form>
+    roll_number = student.roll_number)}}" class="form-container">
+                <button type="submit" class="delete" name="action" value="submit">Delete Student</button>
+                <button type="submit" class="cancel" name="action" value="cancel-btn">Cancel</button>
+            </form>
+        </fieldset>
 
+    </div>
 </div>
 
 {% endblock %}

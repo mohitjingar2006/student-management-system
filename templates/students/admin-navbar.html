@@ -1,8 +1,17 @@
 <nav class="student-admin-navbar navbar">
-    <a href="{{url_for('students.view_all_students')}}" class="nav-link">View All Students</a>
-    <a href="{{url_for('students.add_student')}}" class="nav-link">Add Student</a>
-    <a href="{{url_for('students.search_student')}}" class="nav-link">Search Student</a>
-    <a href="{{url_for('students.remove_student')}}" class="nav-link">Remove Student</a>
-    <a href="{{url_for('students.update_student_details')}}" class="nav-link">Update Student Details</a>
-    <a href="{{url_for('admin.admin_menu')}}" class="nav-link">Back to Admin Main Menu</a>
+    <a href="{{url_for('students.view_all_students')}}"
+        class="nav-link {% if request.endpoint == 'students.view_all_students' %}active{% endif %}">View All
+        Students</a>
+    <a href="{{url_for('students.add_student')}}"
+        class="nav-link {% if request.endpoint == 'students.add_student' %}active{% endif %}">Add Student</a>
+    <a href="{{url_for('students.search_student')}}"
+        class="nav-link {% if request.endpoint == 'students.search_student' %}active{% endif %}">Search Student</a>
+    <a href="{{url_for('students.remove_student')}}"
+        class="nav-link {% if request.endpoint == 'students.remove_student' %}active{% endif %}">Remove Student</a>
+    <a href="{{url_for('students.update_student_details')}}"
+        class="nav-link {% if request.endpoint in ['students.update_student_details','students.update_student_branch','students.update_student_grade'] %}active{% endif %}">
+        Update Student Details
+    </a>
+    <a href="{{url_for('admin.admin_menu')}}"
+        class="nav-link {% if request.endpoint == 'admin.admin_menu' %}active{% endif %}">Back to Admin Main Menu</a>
 </nav>

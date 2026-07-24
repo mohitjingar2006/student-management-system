@@ -7,15 +7,17 @@ Welcome {{session.get("admin_name")}} to Student Management System | xyz college
 {% endblock %}
 
 {% block content %}
-<div class="admin-menu">
+<div class="login-session">
     <h3>Logged in as {{session.get("admin_name")}}.</h3>
-    <br>
-    <h3>Menu</h3>
-    <br>
-    <ol>
-        <li><a href="{{url_for('students.student_admin_menu')}}" class="menu">Student Menu</a></li>
-        <li><a href="{{url_for('teachers.teachers_admin_menu')}}" class="menu">Teacher Menu</a></li>
-        <li><a href="{{url_for('admin.admin_logout')}}" class="menu">Logout</a></li>
-    </ol>
+</div>
+<div class="center-page">
+    <div class="admin-menu center-content container">
+        <h2>Menu</h2>
+        <ul>
+            <li><a href="{{url_for('students.student_admin_menu')}}" class="menu">Student Menu</a></li>
+            <li><a href="{{url_for('teachers.teachers_admin_menu')}}" class="menu">Teacher Menu</a></li>
+            <li><a href="{{url_for('admin.admin_logout')}}" class="menu">Logout</a></li>
+        </ul>
+    </div>
 </div>
 {% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block body_class %}
+error-body
+{% endblock %}
+
+{% block title %}
+500 - Internal Server Error | Student Management System
+{% endblock %}
+
+{% block content %}
+
+<div class="error-container">
+    <h1>500</h1>
+    <div class="error-content">
+        <h2>Internal Server Error</h2>
+        <p>Something went wrong while processing your request.</p>
+        <p>Please try again later.</p> <a href="{{ url_for('home') }}" class="menu"> Return Home </a>
+    </div>
+</div>
+
+{% endblock %}
