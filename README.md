@@ -1,17 +1,10 @@
 ![Python](https://img.shields.io/badge/Python-3.12-blue)
-
 ![Flask](https://img.shields.io/badge/Flask-3.x-black)
-
 ![SQLite](https://img.shields.io/badge/Database-SQLite-green)
-
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
-
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
-
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6-F7DF1E?logo=javascript&logoColor=black)
-
 ![Jinja2](https://img.shields.io/badge/Jinja2-Template-B41717)
-
 ![Status](https://img.shields.io/badge/Status-Completed-success)
 
 ---
@@ -25,31 +18,19 @@ The application provides secure authentication, student and teacher management, 
 
 ---
 
-## Screenshots
+## 📷 Screenshots
 
-### Home Page
+| Home Page | Admin Login |
+|------------|-------------|
+| ![](screenshots/home-page.png) | ![](screenshots/admin-login.png) |
 
-![Home Page](screenshots/home-page.png)
+| Admin Dashboard | Add Student |
+|-----------------|-------------|
+| ![](screenshots/admin-menu.png) | ![](screenshots/add-student.png) |
 
-### Admin Login
-
-![Admin Login](screenshots/admin-login.png)
-
-### Admin Menu
-
-![Admin Menu](screenshots/admin-menu.png)
-
-### Add Student
-
-![Add Student](screenshots/add-student.png)
-
-### Student Records
-
-![Student Records](screenshots/view-all-students.png)
-
-### Confirm-deletion Page
-
-![Confirm Deletion](screenshots/confirm-deletion.png)
+| View All Students | Delete Confirmation |
+|-------------------|---------------------|
+| ![](screenshots/view-all-students.png) | ![](screenshots/confirm-deletion.png) |
 
 ---
 
